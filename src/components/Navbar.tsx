@@ -17,10 +17,10 @@ function Logo() {
 export default function Navbar() {
   return (
     <nav className="bg-secondColor">
-      <div className="flex justify-between">
+      <div className="flex justify-between py-2">
         <div className="flex ">
           <Logo />
-          <div className="hidden md:flex space-x-2 ">
+          <div className="hidden md:flex space-x-2 py-2">
             <Link href="store" className="text-eightColor">
               Store
             </Link>
