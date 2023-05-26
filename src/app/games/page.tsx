@@ -3,8 +3,16 @@ import React, { useState, useEffect } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
 
+interface Game {
+  id: string;
+  title: string;
+  image: string;
+  price: number;
+  tags: string[];
+}
+
 export default function Products() {
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useState<Game[]>([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -44,7 +52,7 @@ export default function Products() {
         </div>
         <hr className="border-[#5A189A]" />
 
-        <div className="grid grid-cols-4 gap-6 py-12 px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 py-12 px-8">
           {games &&
             games
               .slice(0, visibleGames)
