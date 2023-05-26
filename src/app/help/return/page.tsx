@@ -1,4 +1,4 @@
-export default function returnPolicy() {
+export default function ReturnPolicy() {
   return (
     <div className="bg-[#10002B] pt-4 pb-8">
       <div className="max-w-2xl mx-auto p-6 rounded-lg shadow-2xl shadow-[#5A189A] text-white">
@@ -68,7 +68,7 @@ export default function returnPolicy() {
                 mind or if you no longer want the game.
               </li>
               <li>
-                It is the customer's responsibility to ensure that the game is
+                It is the customers responsibility to ensure that the game is
                 compatible with their platform or system specifications. We do
                 not offer refunds for compatibility issues.
               </li>

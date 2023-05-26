@@ -1,4 +1,4 @@
-export default function about() {
+export default function About() {
   return (
     <div className="bg-[#10002B] pt-4 pb-8">
       <div className="max-w-2xl mx-auto p-6 rounded-lg shadow-2xl shadow-[#5A189A] text-white">
@@ -17,7 +17,7 @@ export default function about() {
         </p>
         <p className="text-lg mb-6">
           With our platform, you can explore a vast collection of games across
-          various genres. Whether you're a casual gamer or a hardcore
+          various genres. Whether you are a casual gamer or a hardcore
           enthusiast, we have something for everyone. Discover new adventures,
           immerse yourself in captivating stories, and challenge your skills
           with the latest titles available.

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-export default function ticket() {
+export default function Ticket() {
   const [ticketData, setTicketData] = useState({
     name: "",
     email: "",
