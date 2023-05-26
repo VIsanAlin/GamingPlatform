@@ -38,7 +38,7 @@ export default function FAQ() {
     // Add more questions here if needed
   ]);
 
-  const handleButtonClick = (id) => {
+  const handleButtonClick = (id: number) => {
     setQuestions((prevQuestions) =>
       prevQuestions.map((question) =>
         question.id === id
