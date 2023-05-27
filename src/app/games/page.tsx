@@ -58,9 +58,10 @@ export default function Products() {
               .slice(0, visibleGames)
               .map(({ title, image, price, tags, id }) => (
                 <Link
-                  href="/games/[id]"
-                  as={`/games/${id}`}
+                  href={`/games/item=${id}`}
+                  as={`/games/item=${id}`}
                   key={id}
+                  passHref
                   className="border rounded-md shadow-sm overflow-hidden productItem"
                 >
                   <div className="h-48 overflow-hidden">

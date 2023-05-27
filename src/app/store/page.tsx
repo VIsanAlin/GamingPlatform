@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, cache } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
 
@@ -14,21 +14,26 @@ interface Game {
 export default function Store() {
   const [games, setGames] = useState<Game[]>([]);
   const [filteredGames, setFilteredGames] = useState<Game[]>([]);
-  const [pcGames, setPcGames] = useState<Game[]>([]);
+
+  const getAllGames = cache(async () => {
+    const REALM_APP_ID = "games-oodpu";
+    const app = new Realm.App({ id: REALM_APP_ID });
+    const credentials = Realm.Credentials.anonymous();
+    try {
+      const user = await app.logIn(credentials);
+      const allGames = await user.functions.getAllGames();
+      return allGames;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  });
 
   useEffect(() => {
     const fetchGames = async () => {
-      const REALM_APP_ID = "games-oodpu";
-      const app = new Realm.App({ id: REALM_APP_ID });
-      const credentials = Realm.Credentials.anonymous();
-      try {
-        const user = await app.logIn(credentials);
-        const allGames = await user.functions.getAllGames();
-        setGames(allGames);
-        console.log(allGames);
-      } catch (error) {
-        console.error(error);
-      }
+      const allGames = await getAllGames();
+      setGames(allGames);
+      console.log(allGames);
     };
 
     fetchGames();
@@ -76,8 +81,8 @@ export default function Store() {
               .slice(0, visibleGames)
               .map(({ title, image, price, tags, id }) => (
                 <Link
-                  href="/games/[id]"
-                  as={`/games/${id}`}
+                  href="/games/item=[id]"
+                  as={`/games/item=${id}`}
                   key={id}
                   className="border rounded-md shadow-sm overflow-hidden productItem"
                 >
@@ -112,8 +117,8 @@ export default function Store() {
               .filter((game) => game.tags.includes("RPG"))
               .map(({ title, image, price, tags, id }) => (
                 <Link
-                  href="/games/[id]"
-                  as={`/games/${id}`}
+                  href="/games/item=[id]"
+                  as={`/games/item=${id}`}
                   key={id}
                   className="border rounded-md shadow-sm overflow-hidden productItem"
                 >
@@ -148,8 +153,8 @@ export default function Store() {
               .filter((game) => game.tags.includes("Shooter"))
               .map(({ title, image, price, tags, id }) => (
                 <Link
-                  href="/games/[id]"
-                  as={`/games/${id}`}
+                  href="/games/item=[id]"
+                  as={`/games/item=${id}`}
                   key={id}
                   className="border rounded-md shadow-sm overflow-hidden productItem"
                 >
