@@ -5,11 +5,13 @@ import { useState, useEffect } from "react";
 
 interface Game {
   id: string;
-  title: string;
   image: string;
+  title: string;
   description: string;
+  category: string;
   price: number;
   tags: string[];
+  features: string[];
 }
 
 export default function GameDetails() {
@@ -45,30 +47,55 @@ export default function GameDetails() {
     <div className="bg-firstColor">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 py-12 px-8">
         {game &&
-          game.map(({ title, image, price, tags, description, id }) => (
-            <div key={id}>
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={image}
-                  alt={title}
-                  className="object-fill h-full w-full"
-                />
-              </div>
-              <div className="md:flex md:justify-between h-30 px-2 py-2">
-                <div>
-                  <h3 className="text-lg font-medium mt-2 mb-1">{title}</h3>
-                  <p>{description}</p>
-
-                  <p className="max-sm:hidden text-sm mb-2">
-                    {tags.map((tag) => `[${tag}] `)}
-                  </p>
+          game.map(
+            ({
+              id,
+              image,
+              title,
+              description,
+              category,
+              price,
+              tags,
+              features,
+            }) => (
+              <div key={id} className="rounded-lg shadow-2xl shadow-fiveColor">
+                <div className=" overflow-hidden">
+                  <img
+                    src={image}
+                    alt={title}
+                    className="object-cover h-full w-full"
+                  />
                 </div>
-                <div>
-                  <p className="font-bold text-lg">{price}€</p>
+                <div className="p-4">
+                  <h3 className="text-lg font-medium mb-2 py-2">{title}</h3>
+                  <hr className="py-2" />
+                  <div className="flex space-x-4">
+                    <p className="text-eightColor text-sm mb-4">{category}</p>
+                    <p className="max-sm:hidden text-eightColor text-sm mb-2">
+                      {tags.map((tag) => `[${tag}] `)}
+                    </p>
+                  </div>
+                  <hr className="py-2" />
+                  <p className="text-tenColor mb-4">{description}</p>
+                  <hr className="py-2" />
+                  <div className="flex justify-between items-center">
+                    <div className="text-tenColor text-sm ">
+                      <ul>
+                        {features.map((feature, index) => (
+                          <li key={index} className="mr-2">
+                            [{feature}]
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-bold text-lg">{price}€</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
       </div>
     </div>
   );
