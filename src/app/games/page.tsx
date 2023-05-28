@@ -52,7 +52,7 @@ export default function Products() {
         </div>
         <hr className="border-[#5A189A]" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 py-12 px-8">
+        <div className="flex flex-col md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 md:py-12 md:px-8">
           {games &&
             games
               .slice(0, visibleGames)
@@ -62,24 +62,22 @@ export default function Products() {
                   as={`/games/item=${id}`}
                   key={id}
                   passHref
-                  className="border rounded-md shadow-sm overflow-hidden productItem"
+                  className="flex shadow-md shadow-forthColor md:grid md:border md:rounded-md md:shadow-sm md:overflow-hidden "
                 >
-                  <div className="h-48 overflow-hidden">
-                    <img
-                      src={image}
-                      alt={title}
-                      className="object-fill h-full w-full"
-                    />
+                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden">
+                    <img src={image} alt={title} className="object-cover " />
                   </div>
-                  <div className="md:flex md:justify-between h-30 px-2 py-2">
+                  <div className="md:flex md:justify-between px-2 py-2">
                     <div>
-                      <h3 className="text-lg font-medium mt-2 mb-1">{title}</h3>
-                      <p className="max-sm:hidden text-sm mb-2">
-                        {tags.map((tag) => `[${tag}] `)}
+                      <h3 className="md:text-lg font-medium ">{title}</h3>
+                      <p className="font-extralight text-sm ">
+                        {tags.map((tag) => `${tag}  `)}
                       </p>
                     </div>
                     <div>
-                      <p className="font-bold text-lg">{price}€</p>
+                      <p className="font-light text-lg text-eightColor">
+                        €{price}
+                      </p>
                     </div>
                   </div>
                 </Link>
@@ -89,7 +87,7 @@ export default function Products() {
         {visibleGames < games.length && (
           <button
             onClick={loadMore}
-            className="loadMoreButton bg-blue-500 text-white font-semibold py-2 px-4 rounded mt-4"
+            className="loadMoreButton bg-forthColor w-full text-white font-semibold py-2 px-4 rounded mt-4"
           >
             Load More
           </button>

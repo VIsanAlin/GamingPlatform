@@ -69,11 +69,20 @@ export default function GameDetails() {
                 <div className="p-4">
                   <h3 className="text-lg font-medium mb-2 py-2">{title}</h3>
                   <hr className="py-2" />
-                  <div className="flex space-x-4">
+                  <div className="flex flex-col space-x-4">
                     <p className="text-eightColor text-sm mb-4">{category}</p>
-                    <p className="max-sm:hidden text-eightColor text-sm mb-2">
-                      {tags.map((tag) => `[${tag}] `)}
+                    <p className="font-extralight text-eightColor text-sm mb-2">
+                      {tags.map((tag) => `${tag} `)}
                     </p>
+                  </div>
+                  <hr className="py-2" />
+                  <div className="flex justify-between">
+                    <p>Buy Right Now At </p>
+                    <button>
+                      <p className="font-light text-lg text-eightColor text-end mb-2">
+                        €{price}
+                      </p>
+                    </button>
                   </div>
                   <hr className="py-2" />
                   <p className="text-tenColor mb-4">{description}</p>
@@ -87,9 +96,6 @@ export default function GameDetails() {
                           </li>
                         ))}
                       </ul>
-                    </div>
-                    <div>
-                      <p className="font-bold text-lg">{price}€</p>
                     </div>
                   </div>
                 </div>

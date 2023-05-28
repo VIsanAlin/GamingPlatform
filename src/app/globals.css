@@ -99,7 +99,7 @@ body {
   @apply grid grid-rows-4 md:grid-rows-2 md:grid-cols-2 gap-10 items-center;
 }
 .advantagesBox {
-  @apply border rounded-2xl border-fuchsia-400 text-center px-2 mt-2 mb-2;
+  @apply border rounded-2xl border-eightColor text-center px-2 mt-2 mb-2;
 }
 /* GP Advantages Scroll Animation */
 .hid {
