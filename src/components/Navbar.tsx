@@ -3,13 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, Transition } from "@headlessui/react";
 import menublack from "../../public/nav/menu_black_24dp.svg";
-import cart from "../../public/nav/shopping_cart_black_24dp.svg";
+
+import Cart from "./Cart";
 
 function Logo() {
   const logoImage = "/game-controller.png";
   return (
     <Link className="flex space-x-2 mx-2 pl-4 " href="/">
-      <Image src={logoImage} width={40} height={30} alt="logoImg" />
+      <Image
+        src={logoImage}
+        width={40}
+        height={30}
+        alt="logoImg"
+        loading="lazy"
+      />
       <p className=" text-eightColor pt-4 md:pt-2">Gaming platform </p>
     </Link>
   );
@@ -17,7 +24,7 @@ function Logo() {
 
 export default function Navbar() {
   return (
-    <nav className="bg-secondColor sticky">
+    <nav className="bg-secondColor sticky top-0 z-10">
       <div className="flex justify-between py-2">
         <div className="flex ">
           <Logo />
@@ -39,8 +46,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex py-2 px-2 ">
-          <Image src={cart} alt="cart" className="mx-4" />
-
+          <Cart />
           <div className="block md:hidden">
             <Menu>
               {({ open }) => (

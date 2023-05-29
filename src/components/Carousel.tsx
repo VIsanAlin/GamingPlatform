@@ -26,12 +26,14 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
         <button
           className="text-xl bg-transparent border-none mr-auto "
           onClick={goToPrevSlide}
+          aria-label="Previous slide"
         >
           &lt;
         </button>
         <button
           className="text-xl bg-transparent border-none ml-auto"
           onClick={goToNextSlide}
+          aria-label="Next slide"
         >
           &gt;
         </button>
