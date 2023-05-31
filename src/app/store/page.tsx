@@ -205,36 +205,39 @@ export default function Store() {
         <div>
           <h2 className="text-2xl pb-4">Sales</h2>
           <hr className="border-[#5A189A]" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-12 px-8">
+          <div className="flex flex-col md:grid-cols-2 lg:grid-cols-3 gap-6 py-12 px-8">
             {filteredGames
               .filter(
-                (game) => game.sale.price !== null && game.sale.price !== "Free"
+                (game) =>
+                  game.sale &&
+                  game.sale.price !== null &&
+                  game.sale.price !== "Free"
               )
               .map(({ title, image, sale, tags, id }) => (
                 <Link
                   href="/games/item=[id]"
                   as={`/games/item=${id}`}
                   key={id}
-                  className="border rounded-md shadow-sm overflow-hidden productItem"
+                  className="flex shadow-md shadow-forthColor md:border md:rounded-md md:shadow-sm overflow-hidden productItem my-2"
                 >
-                  <div className="h-48 overflow-hidden">
-                    <img
-                      src={image}
-                      alt={title}
-                      className="object-fill h-full w-full"
-                    />
+                  <div className="h-16 basis-28 px-2 py-2 self-center">
+                    <img src={image} alt={title} className="object-cover " />
                   </div>
-                  <div className="md:flex md:justify-between h-30 px-2 py-2">
+                  <div className="md:flex md:justify-between px-2 py-2">
                     <div>
-                      <h3 className="text-lg font-medium mt-2 mb-1">{title}</h3>
-                      <p className="max-sm:hidden text-sm mb-2">
+                      <h3 className="font-medium md:text-lg md:font-medium">
+                        {title}
+                      </h3>
+                      <p className="font-extralight text-sm">
                         {tags.map((tag) => `[${tag}] `)}
                       </p>
                     </div>
                     <div>
-                      <p className="font-bold text-lg text-green-700">
-                        €{sale.price}
-                      </p>
+                      {sale && sale.price !== undefined ? (
+                        <p className="font-light text-lg text-green-700">
+                          €{sale.price}
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                 </Link>
