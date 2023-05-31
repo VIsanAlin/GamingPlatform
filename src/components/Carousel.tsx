@@ -18,9 +18,13 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative mt-2 z-0">
-      <div className="relative block z-0">
-        <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} />
+    <div className="relative mt-2 z-0 ">
+      <div className="relative block z-0 ">
+        <img
+          src={images[currentIndex]}
+          alt={`Slide ${currentIndex}`}
+          className="rounded-2xl"
+        />
       </div>
       <div className="flex absolute  top-1/3 left-0 right-0 translate-y-1/2 justify-between ">
         <button

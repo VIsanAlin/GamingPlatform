@@ -10,6 +10,17 @@ interface Game {
   image: string;
   price: number;
   tags: string[];
+  sale?: {
+    price: string;
+    start: string;
+    end: string;
+  };
+  aboutGame: string[];
+  category: string;
+  description: string;
+  features: string[];
+  publisher: string;
+  release: string;
 }
 
 export default function Store() {
@@ -52,7 +63,8 @@ export default function Store() {
       (game) =>
         game.tags.includes("Fantasy") ||
         game.tags.includes("RPG") ||
-        game.tags.includes("Shooter")
+        game.tags.includes("Shooter") ||
+        (game.sale && game.sale.price !== null)
     );
     setFilteredGames(filtered);
   }, [games]);
@@ -183,6 +195,46 @@ export default function Store() {
                     </div>
                     <div>
                       <p className="font-bold text-lg">{price}€</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-2xl pb-4">Sales</h2>
+          <hr className="border-[#5A189A]" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-12 px-8">
+            {filteredGames
+              .filter(
+                (game) => game.sale.price !== null && game.sale.price !== "Free"
+              )
+              .map(({ title, image, sale, tags, id }) => (
+                <Link
+                  href="/games/item=[id]"
+                  as={`/games/item=${id}`}
+                  key={id}
+                  className="border rounded-md shadow-sm overflow-hidden productItem"
+                >
+                  <div className="h-48 overflow-hidden">
+                    <img
+                      src={image}
+                      alt={title}
+                      className="object-fill h-full w-full"
+                    />
+                  </div>
+                  <div className="md:flex md:justify-between h-30 px-2 py-2">
+                    <div>
+                      <h3 className="text-lg font-medium mt-2 mb-1">{title}</h3>
+                      <p className="max-sm:hidden text-sm mb-2">
+                        {tags.map((tag) => `[${tag}] `)}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-bold text-lg text-green-700">
+                        €{sale.price}
+                      </p>
                     </div>
                   </div>
                 </Link>

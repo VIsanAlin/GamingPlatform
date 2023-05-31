@@ -17,7 +17,7 @@ function Logo() {
         alt="logoImg"
         loading="lazy"
       />
-      <p className=" text-eightColor pt-4 md:pt-2">Gaming platform </p>
+      <p className=" text-eightColor pt-4 md:pt-4">Gaming platform </p>
     </Link>
   );
 }
@@ -28,7 +28,7 @@ export default function Navbar() {
       <div className="flex justify-between py-2">
         <div className="flex ">
           <Logo />
-          <div className="hidden md:flex space-x-2 py-2">
+          <div className="hidden md:flex space-x-2 pt-4">
             <Link href="store" className="text-eightColor">
               Store
             </Link>

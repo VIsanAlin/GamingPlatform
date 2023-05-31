@@ -75,7 +75,7 @@ export default function GameDetails() {
               tags,
             }) => (
               <div key={id} className="rounded-lg shadow-2xl shadow-fiveColor">
-                <div className=" overflow-hidden">
+                <div className=" overflow-hidden rounded-2xl">
                   <img
                     src={image}
                     alt={title}

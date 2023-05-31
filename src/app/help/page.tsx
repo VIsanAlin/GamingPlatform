@@ -4,7 +4,7 @@ export default function Help() {
   return (
     <div className="bg-firstColor">
       <div className="text-center text-4xl pt-12 pb-6">Help Section </div>
-      <div className="text-center text-xl py-4">
+      <div className="text-center text-xl py-4 px-4">
         What type of help you need us to provide for you?
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 px-8 space-x-8 py-8">

@@ -52,7 +52,7 @@ export default function Products() {
         </div>
         <hr className="border-[#5A189A]" />
 
-        <div className="flex flex-col md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 md:py-12 md:px-8">
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 md:py-12 md:px-8">
           {games &&
             games
               .slice(0, visibleGames)
@@ -64,7 +64,7 @@ export default function Products() {
                   passHref
                   className="flex shadow-md shadow-forthColor md:grid md:border md:rounded-md md:shadow-sm md:overflow-hidden "
                 >
-                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden">
+                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:w-auto md:overflow-hidden">
                     <img src={image} alt={title} className="object-cover " />
                   </div>
                   <div className="md:flex md:justify-between px-2 py-2">
