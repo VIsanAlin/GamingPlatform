@@ -7,10 +7,10 @@ export default function Help() {
       <div className="text-center text-xl py-4 px-4">
         What type of help you need us to provide for you?
       </div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 px-8 space-x-8 py-8">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:px-8 md:space-x-8 py-8">
         <Link
           href="help/faq"
-          className="px-4 text-center bg-thirdColor text-white rounded-lg py-2 hover:bg-forthColor transition-colors duration-300 ease-in-out mx-auto space-y-2 max-w-md"
+          className="px-4 text-center bg-thirdColor text-white rounded-lg py-2 hover:bg-forthColor transition-colors duration-300 ease-in-out mx-auto space-y-2 max-w-sm md:max-w-md"
         >
           <p className="font-medium text-3xl">FAQ</p>
           <p className="text-sm leading-snug py-4">
@@ -19,7 +19,7 @@ export default function Help() {
         </Link>
         <Link
           href="help/return"
-          className="px-4 text-center bg-thirdColor text-white rounded-lg py-2 hover:bg-forthColor transition-colors duration-300 ease-in-out  mx-auto space-y-2 max-w-md"
+          className="px-4 text-center bg-thirdColor text-white rounded-lg py-2 hover:bg-forthColor transition-colors duration-300 ease-in-out mx-auto space-y-2 max-w-sm md:max-w-md"
         >
           <p className="font-medium text-3xl">Return Policy</p>
           <p className="text-sm leading-snug py-4">
@@ -28,7 +28,7 @@ export default function Help() {
         </Link>
         <Link
           href="help/ticket"
-          className="px-4 text-center bg-thirdColor text-white rounded-lg py-2 hover:bg-forthColor transition-colors duration-300 ease-in-out  mx-auto space-y-2 max-w-md"
+          className="px-4 text-center bg-thirdColor text-white rounded-lg py-2 hover:bg-forthColor transition-colors duration-300 ease-in-out mx-auto space-y-2 max-w-sm md:max-w-md"
         >
           <p className="font-medium text-3xl">Ticket</p>
           <p className="text-sm leading-snug py-4">

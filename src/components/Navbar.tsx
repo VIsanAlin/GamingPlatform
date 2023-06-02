@@ -12,23 +12,23 @@ function Logo() {
     <Link className="flex space-x-2 mx-2 pl-4 " href="/">
       <Image
         src={logoImage}
-        width={40}
+        width={60}
         height={30}
         alt="logoImg"
         loading="lazy"
       />
-      <p className=" text-eightColor pt-4 md:pt-4">Gaming platform </p>
+      <p className=" text-eightColor pl-4 pt-4">PixelPulse</p>
     </Link>
   );
 }
 
 export default function Navbar() {
   return (
-    <nav className="bg-secondColor sticky top-0 z-10">
+    <nav className="bg-firstColor sticky top-0 z-10">
       <div className="flex justify-between py-2">
         <div className="flex ">
           <Logo />
-          <div className="hidden md:flex space-x-2 pt-4">
+          <div className="hidden md:flex space-x-4 pl-4 pt-4">
             <Link href="store" className="text-eightColor">
               Store
             </Link>
@@ -45,7 +45,7 @@ export default function Navbar() {
             </Link>
           </div>
         </div>
-        <div className="flex py-2 px-2 ">
+        <div className="flex py-2 px-2 pr-4">
           <Cart />
           <div className="block md:hidden">
             <Menu>

@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/Navbar.tsx"
+    "src/components/Navbar.tsx",
+    "src/app/pages/_error.js"
   ],
   "exclude": ["node_modules"]
 }

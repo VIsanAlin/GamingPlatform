@@ -76,7 +76,7 @@ export default function FAQ() {
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.1 }}
                 >
-                  <p>{question.answer}</p>
+                  <p className="mr-20"> {question.answer}</p>
                 </motion.div>
               )}
             </AnimatePresence>

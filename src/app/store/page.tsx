@@ -78,6 +78,30 @@ export default function Store() {
 
   ////////////////////////////////
 
+  const handleAddToCart = (gameData: Partial<Game>) => {
+    const cartItems = JSON.parse(sessionStorage.getItem("cart") || "[]");
+    const game: Game = {
+      id: gameData.id || "",
+      title: gameData.title || "",
+      image: gameData.image || "",
+      price: gameData.price || 0,
+      tags: gameData.tags || [],
+      sale: gameData.sale || undefined,
+      aboutGame: gameData.aboutGame || [],
+      category: gameData.category || "",
+      description: gameData.description || "",
+      features: gameData.features || [],
+      publisher: gameData.publisher || "",
+      release: gameData.release || "",
+    };
+    const newCart = [...cartItems, game];
+    sessionStorage.setItem("cart", JSON.stringify(newCart));
+
+    window.dispatchEvent(new Event("storage"));
+  };
+
+  ////////////////////////////////
+
   return (
     <div className="bg-firstColor">
       <div className="lg:px-40 md:px-12 md:py-14 px-6 py-10">
@@ -88,15 +112,15 @@ export default function Store() {
         </div>
         <hr className="border-[#5A189A]" />
 
-        <div>
+        <div className="pt-2">
           <Carousel images={images} />
         </div>
 
         {/* Separate divs for Fantasy, RPG, and Shooter */}
         <div className="py-4 ">
-          <h2 className="text-2xl pb-3">Popular Games</h2>
-          <hr className="border-[#5A189A]" />
-          <div className="flex flex-col md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 ">
+          <h2 className="text-2xl py-4">Popular Games</h2>
+          <hr className="border-[#5A189A] mb-4" />
+          <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 ">
             {filteredGames
               .filter((game) => game.tags.includes("Fantasy"))
               .slice(0, visibleGames)
@@ -105,24 +129,40 @@ export default function Store() {
                   href="/games/item=[id]"
                   as={`/games/item=${id}`}
                   key={id}
-                  className="flex shadow-md shadow-forthColor md:border md:rounded-md md:shadow-sm overflow-hidden productItem my-2"
+                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                 >
-                  <div className="h-16 basis-28 px-2 py-2 self-center">
-                    <img src={image} alt={image} className="object-cover  " />
+                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
+                    <img
+                      src={image}
+                      alt={image}
+                      className="object-cover md:object-fill md:h-full md:w-full "
+                    />
                   </div>
-                  <div className="md:flex md:justify-between px-2 py-2">
+                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
                     <div>
-                      <h3 className="font-medium md:text-lg md:font-medium">
+                      <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
                         {title}
                       </h3>
-                      <p className="font-extralight text-sm">
-                        {tags.map((tag) => `${tag} `)}
+                      <p className="font-extralight text-sm mb-2">
+                        {tags
+                          .slice(0, 2)
+                          .map((tag) => `${tag} `)
+                          .join(" • ")}
                       </p>
                     </div>
-                    <div>
-                      <p className="font-light text-lg text-eightColor">
-                        €{price}
-                      </p>
+
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() =>
+                          handleAddToCart({ id, title, image, price })
+                        }
+                        className="flex font-medium text-lg text-tenColor"
+                      >
+                        Add To Cart
+                        <p className="font-light text-lg text-eightColor pl-4">
+                          €{price}
+                        </p>
+                      </button>
                     </div>
                   </div>
                 </Link>
@@ -130,10 +170,10 @@ export default function Store() {
           </div>
         </div>
 
-        <div className="py-4 ">
+        <div className="py-4">
           <h2 className="text-2xl pb-4">RPG Games:</h2>
           <hr className="border-[#5A189A]" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 py-12 px-8">
+          <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
             {filteredGames
               .filter((game) => game.tags.includes("RPG"))
               .map(({ title, image, price, tags, id }) => (
@@ -141,24 +181,37 @@ export default function Store() {
                   href="/games/item=[id]"
                   as={`/games/item=${id}`}
                   key={id}
-                  className="border rounded-md shadow-sm overflow-hidden productItem"
+                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                 >
-                  <div className="h-48 overflow-hidden">
+                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
                     <img
                       src={image}
                       alt={title}
-                      className="object-fill h-full w-full"
+                      className="object-cover md:object-fill md:h-full md:w-full"
                     />
                   </div>
-                  <div className="md:flex md:justify-between h-30 px-2 py-2">
+                  <div className="md:grid-cols-2 md:justify-between h-30 px-2 py-2">
                     <div>
                       <h3 className="text-lg font-medium mt-2 mb-1">{title}</h3>
-                      <p className="max-sm:hidden text-sm mb-2">
-                        {tags.map((tag) => `[${tag}] `)}
+                      <p className="font-extralight text-sm mb-2">
+                        {tags
+                          .slice(0, 2)
+                          .map((tag) => `${tag}`)
+                          .join(" • ")}
                       </p>
                     </div>
-                    <div>
-                      <p className="font-bold text-lg">{price}€</p>
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() =>
+                          handleAddToCart({ id, title, image, price })
+                        }
+                        className="flex font-medium text-lg text-tenColor"
+                      >
+                        Add To Cart{" "}
+                        <p className="font-medium text-lg text-tenColor pl-4">
+                          €{price}
+                        </p>
+                      </button>
                     </div>
                   </div>
                 </Link>
@@ -167,9 +220,9 @@ export default function Store() {
         </div>
 
         <div>
-          <h2 className="text-2xl pb-4">Shooter Games:</h2>
-          <hr className="border-[#5A189A]" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 py-12 px-8">
+          <h2 className="text-2xl py-4">Shooter Games:</h2>
+          <hr className="border-[#5A189A]" mb-4 />
+          <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
             {filteredGames
               .filter((game) => game.tags.includes("Shooter"))
               .map(({ title, image, price, tags, id }) => (
@@ -177,24 +230,39 @@ export default function Store() {
                   href="/games/item=[id]"
                   as={`/games/item=${id}`}
                   key={id}
-                  className="border rounded-md shadow-sm overflow-hidden productItem"
+                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                 >
-                  <div className="h-48 overflow-hidden">
+                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
                     <img
                       src={image}
                       alt={title}
-                      className="object-fill h-full w-full"
+                      className="object-cover md:object-fill md:h-full md:w-full"
                     />
                   </div>
-                  <div className="md:flex md:justify-between h-30 px-2 py-2">
+                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
                     <div>
-                      <h3 className="text-lg font-medium mt-2 mb-1">{title}</h3>
-                      <p className="max-sm:hidden text-sm mb-2">
-                        {tags.map((tag) => `[${tag}] `)}
+                      <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
+                        {title}
+                      </h3>
+                      <p className="font-extralight text-sm mb-2">
+                        {tags
+                          .slice(0, 2)
+                          .map((tag) => `${tag}`)
+                          .join(" • ")}
                       </p>
                     </div>
-                    <div>
-                      <p className="font-bold text-lg">{price}€</p>
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() =>
+                          handleAddToCart({ id, title, image, price })
+                        }
+                        className="flex font-medium text-lg text-tenColor"
+                      >
+                        Add To Cart{" "}
+                        <p className="font-medium text-lg text-tenColor pl-4 ">
+                          €{price}
+                        </p>
+                      </button>
                     </div>
                   </div>
                 </Link>
@@ -203,9 +271,9 @@ export default function Store() {
         </div>
 
         <div>
-          <h2 className="text-2xl pb-4">Sales</h2>
+          <h2 className="text-2xl py-4">Sales</h2>
           <hr className="border-[#5A189A]" />
-          <div className="flex flex-col md:grid-cols-2 lg:grid-cols-3 gap-6 py-12 px-8">
+          <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
             {filteredGames
               .filter(
                 (game) =>
@@ -218,30 +286,89 @@ export default function Store() {
                   href="/games/item=[id]"
                   as={`/games/item=${id}`}
                   key={id}
-                  className="flex shadow-md shadow-forthColor md:border md:rounded-md md:shadow-sm overflow-hidden productItem my-2"
+                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                 >
-                  <div className="h-16 basis-28 px-2 py-2 self-center">
-                    <img src={image} alt={title} className="object-cover " />
+                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
+                    <img
+                      src={image}
+                      alt={title}
+                      className="object-cover md:object-fill md:h-full md:w-full"
+                    />
                   </div>
-                  <div className="md:flex md:justify-between px-2 py-2">
+                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
                     <div>
-                      <h3 className="font-medium md:text-lg md:font-medium">
+                      <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
                         {title}
                       </h3>
-                      <p className="font-extralight text-sm">
-                        {tags.map((tag) => `[${tag}] `)}
+                      <p className="font-extralight text-sm mb-2">
+                        {tags
+                          .slice(0, 2)
+                          .map((tag) => `${tag} `)
+                          .join(" • ")}
                       </p>
                     </div>
-                    <div>
-                      {sale && sale.price !== undefined ? (
-                        <p className="font-light text-lg text-green-700">
-                          €{sale.price}
-                        </p>
-                      ) : null}
+
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() =>
+                          handleAddToCart({ id, title, image, sale })
+                        }
+                        className="flex font-medium text-lg text-tenColor"
+                      >
+                        Add To Cart{" "}
+                        {sale && sale.price !== undefined ? (
+                          <p className="font-light text-lg text-green-700 pl-4">
+                            €{sale.price}
+                          </p>
+                        ) : null}
+                      </button>
                     </div>
                   </div>
                 </Link>
               ))}
+          </div>
+        </div>
+
+        <div className="py-4">
+          <h2 className="text-2xl pb-4">Categories</h2>
+          <hr className="border-[#5A189A] mb-4" />
+          <div className="flex flex-col md:grid md:grid-cols-2 2lg:grid-cols-4 md:gap-6 md:py-12 md:px-8">
+            <Link
+              href="/games"
+              as={`/games`}
+              key={1}
+              className="px-6 py-6 border rounded-xl self-center text-center"
+            >
+              {" "}
+              <h2>Action Games</h2>{" "}
+            </Link>
+            <Link
+              href="/games"
+              as={`/games`}
+              key={2}
+              className="px-6 py-6 border rounded-xl self-center text-center"
+            >
+              {" "}
+              <h2>RPG Games</h2>{" "}
+            </Link>
+            <Link
+              href="/games"
+              as={`/games`}
+              key={3}
+              className="px-6 py-6 border rounded-xl self-center text-center"
+            >
+              {" "}
+              <h2>Fantasy Games</h2>{" "}
+            </Link>
+            <Link
+              href="/games"
+              as={`/games`}
+              key={4}
+              className="px-6 py-6 border rounded-xl self-center text-center"
+            >
+              {" "}
+              <h2>Shooter Games</h2>{" "}
+            </Link>
           </div>
         </div>
       </div>

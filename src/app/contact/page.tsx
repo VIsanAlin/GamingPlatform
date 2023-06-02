@@ -4,7 +4,7 @@ export default function Contact() {
       <div className="max-w-2xl mx-auto p-6 rounded-lg shadow-2xl shadow-[#5A189A] text-white">
         <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
         <hr className="border-[#5A189A] pb-4" />
-
+        <p className="text-lg font-bold py-2"> Please explain in full detail</p>
         <form className="mt-6">
           <div className="mb-4">
             <label
