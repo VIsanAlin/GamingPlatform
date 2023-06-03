@@ -2,7 +2,9 @@
 import React, { useState, useEffect, cache } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
+import Image from "next/image";
 import Carousel from "../../components/Carousel";
+import Cart from "../../../public/nav/shopping_cart_black_24dp.svg";
 
 interface Game {
   id: string;
@@ -119,7 +121,7 @@ export default function Store() {
         {/* Separate divs for Fantasy, RPG, and Shooter */}
         <div className="py-4 ">
           <h2 className="text-2xl py-4">Popular Games</h2>
-          <hr className="border-[#5A189A] mb-4" />
+          <hr className="border-[#5A189A] " />
           <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 ">
             {filteredGames
               .filter((game) => game.tags.includes("Fantasy"))
@@ -130,6 +132,18 @@ export default function Store() {
                   as={`/games/item=${id}`}
                   key={id}
                   className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
+                  onClick={(event) => {
+                    if (
+                      (event.target as Element).tagName.toLowerCase() ===
+                      "button"
+                    ) {
+                      console.log("A button was clicked");
+                      event.preventDefault();
+                    } else {
+                      // Manually navigate to the game page
+                      console.log("not a button pushed");
+                    }
+                  }}
                 >
                   <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
                     <img
@@ -143,7 +157,7 @@ export default function Store() {
                       <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
                         {title}
                       </h3>
-                      <p className="font-extralight text-sm mb-2">
+                      <p className="font-extralight text-sm md:mb-2">
                         {tags
                           .slice(0, 2)
                           .map((tag) => `${tag} `)
@@ -151,15 +165,15 @@ export default function Store() {
                       </p>
                     </div>
 
-                    <div className="flex justify-end">
+                    <div className="flex md:justify-end ">
                       <button
                         onClick={() =>
                           handleAddToCart({ id, title, image, price })
                         }
-                        className="flex font-medium text-lg text-tenColor"
+                        className="flex font-medium text-lg md:text-forthColor md:bg-eightColor md:rounded-lg py-2"
                       >
                         Add To Cart
-                        <p className="font-light text-lg text-eightColor pl-4">
+                        <p className="font-medium text-lg md:text-forthColor pl-2">
                           €{price}
                         </p>
                       </button>
@@ -200,7 +214,7 @@ export default function Store() {
                           .join(" • ")}
                       </p>
                     </div>
-                    <div className="flex justify-end">
+                    <div className="flex md:justify-end">
                       <button
                         onClick={() =>
                           handleAddToCart({ id, title, image, price })
@@ -221,7 +235,7 @@ export default function Store() {
 
         <div>
           <h2 className="text-2xl py-4">Shooter Games:</h2>
-          <hr className="border-[#5A189A]" mb-4 />
+          <hr className="border-[#5A189A]" />
           <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
             {filteredGames
               .filter((game) => game.tags.includes("Shooter"))
@@ -231,6 +245,11 @@ export default function Store() {
                   as={`/games/item=${id}`}
                   key={id}
                   className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
+                  onClick={(event) => {
+                    if ((event.target as Element).tagName === "button") {
+                      event.preventDefault();
+                    }
+                  }}
                 >
                   <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
                     <img
@@ -251,7 +270,7 @@ export default function Store() {
                           .join(" • ")}
                       </p>
                     </div>
-                    <div className="flex justify-end">
+                    <div className="flex md:justify-end">
                       <button
                         onClick={() =>
                           handleAddToCart({ id, title, image, price })
@@ -308,7 +327,7 @@ export default function Store() {
                       </p>
                     </div>
 
-                    <div className="flex justify-end">
+                    <div className="flex md:justify-end">
                       <button
                         onClick={() =>
                           handleAddToCart({ id, title, image, sale })

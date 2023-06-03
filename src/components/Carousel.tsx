@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { BsNintendoSwitch } from "react-icons/bs";
+import {
+  BsSteam,
+  BsPlaystation,
+  BsXbox,
+  BsNintendoSwitch,
+} from "react-icons/bs";
 
 interface CarouselProps {
   images: string[];
@@ -21,29 +26,30 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
 
   return (
     <div className="relative mt-2 z-0 justify-between ">
-      <Link href="/product-link" className="relative mt-2 z-0 flex">
-        <div className="relative block z-0 " style={{ width: "65%" }}>
+      <Link href="/product-link" className="flex relative  mt-2 z-0 ">
+        <div className="relative block z-0 w-full lg:w-[65%]">
           <img
             src={images[currentIndex]}
             alt={`Slide ${currentIndex}`}
-            className="rounded-l-3xl"
+            className="rounded-xl lg:rounded-l-3xl lg:rounded-r-none"
           />
         </div>
         <div
-          className="flex flex-col justify-between ml-4 bg-forthColor rounded-r-3xl"
+          className="hidden lg:flex lg:flex-col justify-between pl-4 pr-4 ml-4 bg-forthColor rounded-r-3xl"
           style={{ maxWidth: "30%" }}
         >
           <div>
-            <h2 className="text-xl font-bold py-4">Title</h2>
+            <h2 className="text-xl font-bold py-4">Cyberpunk 2077</h2>
             <p className="text-sm mb-4">
               Here is the description for the product you are seeing the image
               on your left and will make you more interested to buy this game
             </p>
           </div>
           <div>
-            <p className="font-light mb-2">$29.99</p>
+            <p className="font-light mb-2">$39.99</p>
             <div className="flex space-x-4 pb-6">
               <button>Available right now</button>
+              <BsSteam /> <BsPlaystation /> <BsXbox />
               <BsNintendoSwitch />
             </div>
           </div>
@@ -51,14 +57,14 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
       </Link>
       <div className="flex absolute top-1/3 left-0 right-0 translate-y-1/2 justify-between">
         <button
-          className="text-xl bg-transparent border-none mr-auto"
+          className=" bg-transparent border-none mr-auto text-3xl"
           onClick={goToPrevSlide}
           aria-label="Previous slide"
         >
           &lt;
         </button>
         <button
-          className="text-xl bg-transparent border-none ml-auto"
+          className=" bg-transparent border-none ml-auto text-3xl"
           onClick={goToNextSlide}
           aria-label="Next slide"
         >
