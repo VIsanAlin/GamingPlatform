@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import cart from "../../public/nav/shopping_cart_black_24dp.svg";
 
 interface CartItem {
@@ -53,7 +54,7 @@ const Cart: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="fixed top-0 w-full left-0 md:left-[50%] md:w-1/2 lg:left-[75%] lg:w-1/4 h-full bg-forthColor bg-opacity-80 flex justify-center items-start">
+        <div className="fixed top-0 w-full left-0 md:left-[50%] md:w-1/2 lg:left-[75%] lg:w-1/4 h-full bg-forthColor flex justify-center items-start">
           <div className="p-4 ">
             <button
               onClick={toggleCart}
@@ -93,9 +94,10 @@ const Cart: React.FC = () => {
                     </div>
                   ))}
                 <p>Total Price: ${getTotal()}</p>
-                <form>
-                  <input type="submit" value="Checkout" />
-                </form>
+
+                <Link href="order" className="text-eightColor">
+                  <button onClick={toggleCart}>Checkout</button>
+                </Link>
               </div>
             )}
           </div>

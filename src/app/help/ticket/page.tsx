@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import * as Realm from "realm-web";
 
 export default function Ticket() {
   const [ticketData, setTicketData] = useState({
@@ -8,6 +9,24 @@ export default function Ticket() {
     email: "",
     problem: "",
   });
+
+  const pushTicket = async () => {
+    const REALM_APP_ID = "games-oodpu";
+    const app = new Realm.App({ id: REALM_APP_ID });
+    const credentials = Realm.Credentials.anonymous();
+    try {
+      const user = await app.logIn(credentials);
+      if (user !== null && app.currentUser !== null) {
+        const mongodb = app.currentUser.mongoClient("mongodb-atlas");
+        const collection = mongodb.db("Products").collection("contactUs");
+        await collection.insertOne(ticketData);
+        console.log("Ticket inserted successfully!");
+      }
+    } catch (error) {
+      console.error("Error inserting ticket:", error);
+      return [];
+    }
+  };
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -19,11 +38,12 @@ export default function Ticket() {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     // Here, you can implement the logic to submit the ticket data to your backend or perform any necessary actions.
     // You can access the ticket data using the ticketData state variable.
     console.log(ticketData);
+    await pushTicket();
     // Reset the form after submission
     setTicketData({
       name: "",

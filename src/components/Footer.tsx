@@ -93,6 +93,11 @@ export default function Footer() {
                 Create a ticket
               </Link>
             </div>
+            <div className="footerGridParagraph">
+              <Link href="/gdpr" className="footerGridLink">
+                GDPR
+              </Link>
+            </div>
           </div>
         </div>
       </div>
