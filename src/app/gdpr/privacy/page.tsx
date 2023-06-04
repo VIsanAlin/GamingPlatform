@@ -20,7 +20,7 @@ const PrivacyPolicyPage: React.FC = () => {
             We explain how we use the collected information and the lawful
             grounds for processing it. We outline the specific purposes, such as
             providing our services, personalizing user experiences, and
-            improving our website's functionality.
+            improving our websites functionality.
           </p>
         </div>
         <div className="space-y-2">

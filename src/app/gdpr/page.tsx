@@ -92,8 +92,8 @@ export default function GDPR() {
             obtain a copy of it. Vestibulum lacinia arcu eget nulla.
           </p>
           <p>
-            Offer the right to rectify or erase personal data ("right to be
-            forgotten"). Class aptent taciti sociosqu ad litora torquent.
+            Offer the right to rectify or erase personal data (right to be
+            forgotten). Class aptent taciti sociosqu ad litora torquent.
           </p>
           <p>
             Enable data subjects to restrict or object to the processing of
@@ -157,7 +157,7 @@ export default function GDPR() {
         <div>
           <h2>Data Protection Officer (DPO)</h2>
           <p>
-            Appoint a Data Protection Officer if your organization's core
+            Appoint a Data Protection Officer if your organizations core
             activities involve regular and systematic monitoring of individuals
             on a large scale, or if you process sensitive personal data on a
             large scale. Donec ac odio tempor orci dapibus ultrices in iaculis

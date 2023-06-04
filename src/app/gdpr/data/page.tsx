@@ -20,8 +20,8 @@ const DataSubjectRightsPage: React.FC = () => {
           <p>
             We respect your right to ensure the accuracy of your personal data.
             If you find any inaccuracies or believe that your data should be
-            erased, we provide mechanisms for rectification and the "right to be
-            forgotten" according to applicable regulations.
+            erased, we provide mechanisms for rectification and the right to be
+            forgotten according to applicable regulations.
           </p>
         </div>
         <div className="space-y-2">

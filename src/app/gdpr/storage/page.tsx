@@ -48,8 +48,8 @@ const StoragePolicyPage: React.FC = () => {
           <h2>Data Transfer and Storage Locations</h2>
           <p>
             We disclose if user data may be transferred or stored in locations
-            outside of the user's country or region. We explain the safeguards
-            we have in place, such as standard contractual clauses or other
+            outside of the users country or region. We explain the safeguards we
+            have in place, such as standard contractual clauses or other
             approved mechanisms, to ensure an adequate level of protection for
             transferred data.
           </p>
