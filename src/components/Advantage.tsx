@@ -26,7 +26,7 @@ export default function Advantages() {
             Hassle-Free Refund Policy
           </h2>
           <p className="text-eightColor text-xl mt-2">
-            We understand that not every game is a perfect fit. That's why
+            We understand that not every game is a perfect fit. That is why
             PixelPulse offers a hassle-free refund policy, ensuring your
             satisfaction with your gaming purchases. For more information check
             our refund policy.
@@ -43,7 +43,7 @@ export default function Advantages() {
         <div className="advantagesBox hid">
           <h2 className="text-thirdColor text-3xl mt-2">Multi-Platform Keys</h2>
           <p className="text-eightColor text-xl ">
-            Whether you're a PC gamer, PlayStation enthusiast, Xbox aficionado,
+            Whether you are a PC gamer, PlayStation enthusiast, Xbox aficionado,
             or Nintendo fan, PixelPulse has you covered. Discover a vast
             selection of game keys across multiple platforms, allowing you to
             enjoy your favorite games on your preferred device.
