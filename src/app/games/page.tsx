@@ -62,7 +62,7 @@ export default function Products() {
                   as={`/games/item=${id}`}
                   key={id}
                   passHref
-                  className="flex shadow-md shadow-forthColor md:grid md:border md:rounded-md md:shadow-sm md:overflow-hidden "
+                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2 "
                 >
                   <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:w-auto md:overflow-hidden">
                     <img src={image} alt={title} className="object-cover " />

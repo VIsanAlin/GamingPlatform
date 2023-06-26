@@ -4,7 +4,6 @@ import * as Realm from "realm-web";
 import Link from "next/link";
 import Image from "next/image";
 import Carousel from "../../components/Carousel";
-import Cart from "../../../public/nav/shopping_cart_black_24dp.svg";
 
 interface Game {
   id: string;
@@ -165,7 +164,7 @@ export default function Store() {
                       </p>
                     </div>
 
-                    <div className="flex md:justify-end ">
+                    <div className="flex p-2">
                       <button
                         onClick={() =>
                           handleAddToCart({ id, title, image, price })

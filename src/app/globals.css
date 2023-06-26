@@ -124,7 +124,7 @@ body {
   space-y-0 md:space-y-0;
 }
 .platformsLayout {
-  @apply grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 gap-4 items-center;
+  @apply grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 gap-4 items-center;
 }
 .platformsBox {
   @apply border rounded-2xl border-fuchsia-400 text-center px-2 mt-2 mb-2;

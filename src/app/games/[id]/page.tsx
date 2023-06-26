@@ -5,17 +5,22 @@ import { useState, useEffect } from "react";
 
 interface Game {
   id: string;
-  image: string;
   title: string;
+  image: string;
+  price: number;
+  tags: string[];
+  sale?: {
+    price: string;
+    start: string;
+    end: string;
+  };
   description: string;
   publisher: string;
   category: string;
   aboutGame: string[];
   features: string[];
   systemRequirements: SystemReq;
-  tags: string[];
   release: string;
-  price: number;
 }
 interface SystemReq {
   OS: string;
@@ -54,6 +59,36 @@ export default function GameDetails() {
   if (!game) {
     return <div>Loading...</div>;
   }
+
+  const handleAddToCart = (gameData: Partial<Game>) => {
+    const cartItems = JSON.parse(sessionStorage.getItem("cart") || "[]");
+    const game: Game = {
+      id: gameData.id || "",
+      title: gameData.title || "",
+      image: gameData.image || "",
+      price: gameData.price || 0,
+      tags: gameData.tags || [],
+      sale: gameData.sale || undefined,
+      aboutGame: gameData.aboutGame || [],
+      category: gameData.category || "",
+      description: gameData.description || "",
+      features: gameData.features || [],
+      publisher: gameData.publisher || "",
+      release: gameData.release || "",
+      systemRequirements: gameData.systemRequirements || {
+        OS: "",
+        Processor: "",
+        Memory: "",
+        Graphics: "",
+        DirectX: "",
+        Storage: "",
+      },
+    };
+    const newCart = [...cartItems, game];
+    sessionStorage.setItem("cart", JSON.stringify(newCart));
+
+    window.dispatchEvent(new Event("storage"));
+  };
 
   return (
     <div className="bg-firstColor">
@@ -95,9 +130,14 @@ export default function GameDetails() {
                   </div>
                   <hr className="py-2" />
                   <div className="flex justify-between">
-                    <p>Buy Right Now At </p>
-                    <button>
-                      <p className="font-light text-lg text-eightColor text-end mb-2">
+                    <button
+                      onClick={() =>
+                        handleAddToCart({ id, title, image, price })
+                      }
+                      className="flex font-medium text-lg md:text-forthColor md:bg-eightColor md:rounded-lg py-2"
+                    >
+                      Buy Right Now At
+                      <p className="font-medium text-lg md:text-forthColor pl-2">
                         €{price}
                       </p>
                     </button>

@@ -22,39 +22,41 @@ export default function Advantages() {
       </div>
       <div className="advantagesLayout">
         <div className="advantagesBox hid">
-          <h2 className="text-thirdColor text-3xl mt-2">Refunds</h2>
+          <h2 className="text-thirdColor text-3xl mt-2">
+            Hassle-Free Refund Policy
+          </h2>
           <p className="text-eightColor text-xl mt-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            We understand that not every game is a perfect fit. That's why
+            PixelPulse offers a hassle-free refund policy, ensuring your
+            satisfaction with your gaming purchases. For more information check
+            our refund policy.
           </p>
         </div>
         <div className="advantagesBox hid">
-          <h2 className="text-thirdColor text-3xl mt-2">Best discounts</h2>
+          <h2 className="text-thirdColor text-3xl mt-2">Exclusive Discounts</h2>
           <p className="text-eightColor text-xl mt-2 ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            At PixelPulse, we believe in making gaming affordable. Take
+            advantage of our exclusive discounts and special offers, allowing
+            you to get more games for your buck.
           </p>
         </div>
         <div className="advantagesBox hid">
-          <h2 className="text-thirdColor text-3xl mt-2">Multi platforms</h2>
+          <h2 className="text-thirdColor text-3xl mt-2">Multi-Platform Keys</h2>
           <p className="text-eightColor text-xl ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Whether you're a PC gamer, PlayStation enthusiast, Xbox aficionado,
+            or Nintendo fan, PixelPulse has you covered. Discover a vast
+            selection of game keys across multiple platforms, allowing you to
+            enjoy your favorite games on your preferred device.
           </p>
         </div>
         <div className="advantagesBox hid">
-          <h2 className="text-thirdColor text-3xl mt-2">Broken Games</h2>
+          <h2 className="text-thirdColor text-3xl mt-2">
+            Diverse Gaming Selection
+          </h2>
           <p className="text-eightColor text-xl ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            PixelPulse prides itself on curating a diverse gaming selection.
+            From action-packed adventures to immersive RPGs, we have games for
+            every gaming taste and preference.
           </p>
         </div>
       </div>
