@@ -14,6 +14,7 @@ interface Game {
     start: string;
     end: string;
   };
+  reviews: [ReviewCompanies];
   description: string;
   publisher: string;
   category: string;
@@ -29,6 +30,11 @@ interface SystemReq {
   Graphics: string;
   DirectX: string;
   Storage: string;
+}
+interface ReviewCompanies {
+  username: string;
+  comment: string;
+  rating: number;
 }
 
 export default function GameDetails() {
@@ -71,6 +77,13 @@ export default function GameDetails() {
       sale: gameData.sale || undefined,
       aboutGame: gameData.aboutGame || [],
       category: gameData.category || "",
+      reviews: gameData.reviews || [
+        {
+          username: "",
+          comment: "",
+          rating: 0,
+        },
+      ],
       description: gameData.description || "",
       features: gameData.features || [],
       publisher: gameData.publisher || "",
@@ -100,6 +113,7 @@ export default function GameDetails() {
               image,
               title,
               description,
+              reviews,
               publisher,
               category,
               aboutGame,
@@ -118,48 +132,94 @@ export default function GameDetails() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-medium mb-2 py-2">{title}</h3>
-                  <p className="text-eightColor text-sm mb-4">{category}</p>
-                  <h2>{publisher}</h2>
-                  <hr className="py-2" />
-                  <div className="flex flex-col space-x-4">
-                    <p className="mb-2">Release date:{release}</p>
-                    <p className="font-extralight text-eightColor text-sm mb-2">
-                      {tags.map((tag) => `${tag} `)}
+                  <h3 className="text-fiveColor text-2xl font-medium  ">
+                    {title}
+                  </h3>
+
+                  <h2 className="text-fiveColor text-lg font-medium">
+                    Publisher :{" "}
+                    <span className="text-eightColor">{publisher}</span>
+                  </h2>
+
+                  <p className="text-fiveColor text-lg">
+                    Release date :{" "}
+                    <span className="text-eightColor">{release}</span>
+                  </p>
+                  <p className="text-fiveColor mb-2">Categories :</p>
+                  <p className="hidden md:block font-extralight text-eightColor text-sm mb-2">
+                    Tags :{" "}
+                    {tags
+                      .slice(0, 3)
+                      .map((tag) => `${tag} `)
+                      .join(" • ")}
+                  </p>
+
+                  <hr />
+                  <div className="flex justify-between py-4">
+                    <p className="font-medium text-lg text-forthColor pl-2 py-2 w-1/3">
+                      €{price}
                     </p>
-                  </div>
-                  <hr className="py-2" />
-                  <div className="flex justify-between">
                     <button
                       onClick={() =>
                         handleAddToCart({ id, title, image, price })
                       }
-                      className="flex font-medium text-lg md:text-forthColor md:bg-eightColor md:rounded-lg py-2"
+                      className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
                     >
-                      Buy Right Now At
-                      <p className="font-medium text-lg md:text-forthColor pl-2">
-                        €{price}
-                      </p>
+                      Buy
                     </button>
                   </div>
                   <hr className="py-2" />
-                  <p>Small Description</p>
-                  <p className="text-tenColor mb-4">{description}</p>
+                  <div className="pb-4">
+                    <p className="text-fiveColor text-xl text-bold text-center">
+                      Reviewers
+                    </p>
+                    {reviews.map((review, index) => (
+                      <div
+                        key={index}
+                        className="bg-forthColor bg-opacity-10 rounded-md mt-6"
+                      >
+                        <h2 className="text-eightColor text-2xl font-bold text-center pt-2">
+                          {review.username}
+                        </h2>
+                        <h3 className="text-xl text-center font-semibold py-2 ">
+                          {review.rating}
+                        </h3>
+                        <p className="text-eightColor text-justify text-sm px-4 pb-4">
+                          {review.comment}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                   <hr className="py-2" />
+                  <p className="text-fiveColor text-2xl font-bold text-center py-2">
+                    Description
+                  </p>
+                  <p className="text-tenColor text-justify text-base/6 mb-4">
+                    {description}
+                  </p>
+
+                  <p className="text-fiveColor text-xl text-bold pb-2">
+                    Did you know ?
+                  </p>
                   {aboutGame.map((about, index) => (
-                    <li key={index} className="mr-2">
+                    <p
+                      key={index}
+                      className="text-tenColor text-justify text-base/6 mb-4"
+                    >
                       {about}{" "}
-                    </li>
+                    </p>
                   ))}
                   <hr className="py-2" />
                   <div className="flex justify-between items-center">
-                    <div className="text-gray-600 text-sm">
-                      <p className="font-medium">Features</p>
-                      <ul className="mt-2 mb-2">
+                    <div className="text-tenColor text-sm">
+                      <p className="text-fiveColor text-xl text-bold pb-2">
+                        Features
+                      </p>
+                      <ul className="pt-2 pb-4">
                         {features.map((feature, index) => (
                           <li
                             key={index}
-                            className="flex items-center space-x-2"
+                            className="flex items-center space-x-2 pb-2"
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +241,7 @@ export default function GameDetails() {
                   </div>
                   <hr className="py-2" />
                   <div>
-                    <h2 className="text-2xl font-bold mb-2">
+                    <h2 className="text-fiveColor text-2xl font-bold mb-2">
                       System Requirements
                     </h2>
                     <div className="space-y-2">
