@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
+import { input } from "@material-tailwind/react";
 
 interface Game {
   id: string;
@@ -9,6 +10,7 @@ interface Game {
   image: string;
   price: number;
   tags: string[];
+  category: string;
 }
 
 export default function Products() {
@@ -39,11 +41,77 @@ export default function Products() {
   function loadMore() {
     setVisibleGames((prev) => prev + 12);
   }
+
+  // Category
+
+  const [isCategoriesVisible, setIsCategoriesVisible] = useState(true);
+  const toggleCategories = () => {
+    setIsCategoriesVisible((prevVisibility) => !prevVisibility);
+  };
+
+  function categoryList() {
+    const categories = games.reduce((uniqueCategories: string[], game) => {
+      if (!uniqueCategories.includes(game.category)) {
+        uniqueCategories.push(game.category);
+      }
+      return uniqueCategories;
+    }, []);
+
+    return categories;
+  }
+
+  const chosenCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.name);
+  };
+
+  const uniqueCategories = categoryList();
+
+  // Search Bar
+  const [searchValue, setSearchValue] = useState("");
+  const searchGames = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchValue(value);
+  };
+  const enterGame = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      console.log(searchValue);
+    }
+  };
+
   ////////////////////////////////
 
   return (
     <div className="bg-firstColor">
-      <div></div>
+      <div className="lg:px-40 md:px-32 py-4 px-10">
+        <input
+          className="bg-firstColor border-fiveColor border-2 rounded-md shadow-md shadow-fiveColor text-eightColor w-full pl-2"
+          type="text"
+          value={searchValue}
+          onChange={searchGames}
+          onKeyDown={enterGame}
+        />
+      </div>
+      <div className="lg:px-40 md:px-32 py-4 px-10 text-fiveColor">
+        <div className="pb-4" onClick={toggleCategories}>
+          Categories
+        </div>
+        {isCategoriesVisible && (
+          <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 lg:w-1/2 text-eightColor ">
+            {uniqueCategories.map((category) => (
+              <div className="flex space-x-2" key={category}>
+                <input
+                  className="rounded-xl"
+                  type="checkbox"
+                  name={category}
+                  id={category}
+                  onChange={chosenCategory}
+                />
+                <p>{category}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
       <div className="lg:px-40 md:px-32 md:py-24 px-10 py-10">
         <div className="text-4xl pb-8">
           <h2 className="text-2xl md:text-4xl text-[#e6bbff]">

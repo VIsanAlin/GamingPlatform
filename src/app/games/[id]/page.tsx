@@ -2,6 +2,8 @@
 import { usePathname } from "next/navigation";
 import * as Realm from "realm-web";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import featureIcon from "../../../../public/star.png";
 
 interface Game {
   id: string;
@@ -221,18 +223,12 @@ export default function GameDetails() {
                             key={index}
                             className="flex items-center space-x-2 pb-2"
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4 text-gray-400"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M9 4.586l-4.879 4.88a1 1 0 101.414 1.414L9 7.414l4.879 4.88a1 1 0 101.414-1.414L10.414 6l4.88-4.879a1 1 0 10-1.414-1.414L9 4.586z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
+                            <Image
+                              src={featureIcon}
+                              width={25}
+                              height={25}
+                              alt="FeatureIcon"
+                            />
                             <span>{feature}</span>
                           </li>
                         ))}
@@ -246,27 +242,37 @@ export default function GameDetails() {
                     </h2>
                     <div className="space-y-2">
                       <p>
-                        <span className="font-bold">OS:</span>{" "}
+                        <span className="text-fiveColor font-bold">OS:</span>{" "}
                         {systemRequirements.OS}
                       </p>
                       <p>
-                        <span className="font-bold">Processor:</span>{" "}
+                        <span className="text-fiveColor font-bold">
+                          Processor:
+                        </span>{" "}
                         {systemRequirements.Processor}
                       </p>
                       <p>
-                        <span className="font-bold">Memory:</span>{" "}
+                        <span className="text-fiveColor font-bold">
+                          Memory:
+                        </span>{" "}
                         {systemRequirements.Memory}
                       </p>
                       <p>
-                        <span className="font-bold">Graphics:</span>{" "}
+                        <span className="text-fiveColor font-bold">
+                          Graphics:
+                        </span>{" "}
                         {systemRequirements.Graphics}
                       </p>
                       <p>
-                        <span className="font-bold">Storage:</span>{" "}
+                        <span className="text-fiveColor font-bold">
+                          Storage:
+                        </span>{" "}
                         {systemRequirements.Storage}
                       </p>
                       <p>
-                        <span className="font-bold">DirectX:</span>{" "}
+                        <span className="text-fiveColorfont-bold">
+                          DirectX:
+                        </span>{" "}
                         {systemRequirements.DirectX}
                       </p>
                     </div>

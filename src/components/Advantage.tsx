@@ -18,14 +18,14 @@ export default function Advantages() {
   return (
     <section className="advantages">
       <div className="advantagesTitle">
-        <h1>GP Advantages</h1>
+        <h1>PixelPulse Advantages</h1>
       </div>
       <div className="advantagesLayout">
         <div className="advantagesBox hid">
           <h2 className="text-thirdColor text-3xl mt-2">
             Hassle-Free Refund Policy
           </h2>
-          <p className="text-eightColor text-xl mt-2">
+          <p className="text-eightColor text-base/6 text-justify px-4 py-4">
             We understand that not every game is a perfect fit. That is why
             PixelPulse offers a hassle-free refund policy, ensuring your
             satisfaction with your gaming purchases. For more information check
@@ -34,7 +34,7 @@ export default function Advantages() {
         </div>
         <div className="advantagesBox hid">
           <h2 className="text-thirdColor text-3xl mt-2">Exclusive Discounts</h2>
-          <p className="text-eightColor text-xl mt-2 ">
+          <p className="text-eightColor text-base/6 text-justify px-4 py-4 ">
             At PixelPulse, we believe in making gaming affordable. Take
             advantage of our exclusive discounts and special offers, allowing
             you to get more games for your buck.
@@ -42,7 +42,7 @@ export default function Advantages() {
         </div>
         <div className="advantagesBox hid">
           <h2 className="text-thirdColor text-3xl mt-2">Multi-Platform Keys</h2>
-          <p className="text-eightColor text-xl ">
+          <p className="text-eightColor text-base/6 text-justify px-4 py-4">
             Whether you are a PC gamer, PlayStation enthusiast, Xbox aficionado,
             or Nintendo fan, PixelPulse has you covered. Discover a vast
             selection of game keys across multiple platforms, allowing you to
@@ -53,7 +53,7 @@ export default function Advantages() {
           <h2 className="text-thirdColor text-3xl mt-2">
             Diverse Gaming Selection
           </h2>
-          <p className="text-eightColor text-xl ">
+          <p className="text-eightColor text-base/6 text-justify px-4 py-4">
             PixelPulse prides itself on curating a diverse gaming selection.
             From action-packed adventures to immersive RPGs, we have games for
             every gaming taste and preference.

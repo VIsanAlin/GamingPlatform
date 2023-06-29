@@ -9,7 +9,7 @@ import Cart from "./Cart";
 function Logo() {
   const logoImage = "/game-controller.png";
   return (
-    <Link className="flex space-x-2 mx-2 pl-4 " href="/">
+    <Link className="flex space-x-2" href="/">
       <Image
         src={logoImage}
         width={60}
@@ -17,7 +17,7 @@ function Logo() {
         alt="logoImg"
         loading="lazy"
       />
-      <p className=" text-eightColor pl-4 pt-4">PixelPulse</p>
+      <p className=" text-eightColor pl-2 pr-4 pt-4">PixelPulse</p>
     </Link>
   );
 }
@@ -25,10 +25,10 @@ function Logo() {
 export default function Navbar() {
   return (
     <nav className="bg-firstColor sticky top-0 z-10">
-      <div className="flex justify-between py-2">
+      <div className="flex justify-between py-2 lg:px-40 px-6">
         <div className="flex ">
           <Logo />
-          <div className="hidden md:flex space-x-4 pl-4 pt-4">
+          <div className="hidden md:flex space-x-4 pt-4">
             <Link href="store" className="text-eightColor">
               Store
             </Link>
@@ -45,7 +45,7 @@ export default function Navbar() {
             </Link>
           </div>
         </div>
-        <div className="flex py-2 px-2 pr-4">
+        <div className="flex py-2">
           <Cart />
           <div className="block md:hidden">
             <Menu>

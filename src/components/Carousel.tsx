@@ -25,9 +25,9 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative mt-2 z-0 justify-between ">
-      <Link href="/product-link" className="flex relative  mt-2 z-0 ">
-        <div className="relative block z-0 w-full lg:w-[65%]">
+    <div className="relative mt-4 z-0 justify-between px-12">
+      <Link href="/games" className="flex relative  mt-2 z-0 ">
+        <div className="relative block z-0 w-full lg:w-[70%]">
           <img
             src={images[currentIndex]}
             alt={`Slide ${currentIndex}`}
@@ -55,7 +55,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           </div>
         </div>
       </Link>
-      <div className="flex absolute top-1/3 left-0 right-0 translate-y-1/2 justify-between">
+      <div className="flex absolute top-[45%] left-12 right-12 translate-y-1/2 justify-between">
         <button
           className=" bg-transparent border-none mr-auto text-3xl"
           onClick={goToPrevSlide}
