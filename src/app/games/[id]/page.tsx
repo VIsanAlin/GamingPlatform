@@ -4,6 +4,12 @@ import * as Realm from "realm-web";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import featureIcon from "../../../../public/star.png";
+import {
+  BsSteam,
+  BsPlaystation,
+  BsXbox,
+  BsNintendoSwitch,
+} from "react-icons/bs";
 
 interface Game {
   id: string;
@@ -11,6 +17,7 @@ interface Game {
   image: string;
   price: number;
   tags: string[];
+  platforms: string[];
   sale?: {
     price: string;
     start: string;
@@ -64,6 +71,23 @@ export default function GameDetails() {
     }
   }, [id]);
 
+  function platformsIcon(platforms: string) {
+    {
+      switch (platforms) {
+        case "PC":
+          return <BsSteam />;
+        case "Playstation":
+          return <BsPlaystation />;
+        case "Xbox":
+          return <BsXbox />;
+        case "Nintendo Switch":
+          return <BsNintendoSwitch />;
+        default:
+          return null;
+      }
+    }
+  }
+
   if (!game) {
     return <div>Loading...</div>;
   }
@@ -75,6 +99,7 @@ export default function GameDetails() {
       title: gameData.title || "",
       image: gameData.image || "",
       price: gameData.price || 0,
+      platforms: gameData.platforms || [],
       tags: gameData.tags || [],
       sale: gameData.sale || undefined,
       aboutGame: gameData.aboutGame || [],
@@ -117,6 +142,7 @@ export default function GameDetails() {
               description,
               reviews,
               publisher,
+              platforms,
               category,
               aboutGame,
               features,
@@ -134,8 +160,13 @@ export default function GameDetails() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-fiveColor text-2xl font-medium  ">
+                  <h3 className="flex items-center text-fiveColor text-2xl font-medium  ">
                     {title}
+                    {platforms.map((platform) => (
+                      <div className="px-1" key={platform}>
+                        {platformsIcon(platform)}
+                      </div>
+                    ))}
                   </h3>
 
                   <h2 className="text-fiveColor text-lg font-medium">

@@ -2,7 +2,6 @@
 import React, { useState, useEffect, cache } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
-import Image from "next/image";
 import Carousel from "../../components/Carousel";
 
 interface Game {
