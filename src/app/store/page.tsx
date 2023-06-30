@@ -220,8 +220,11 @@ export default function Store() {
                   </div>
                   <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
                     <div>
-                      <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
-                        {title}
+                      <h3 className="flex font-medium md:text-lg md:mt-2 md:mb-1">
+                        <p className="pr-2">{title}</p>
+                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md px-2">
+                          Popular
+                        </span>
                       </h3>
 
                       <p className="font-extralight text-sm md:mb-2">
@@ -285,8 +288,11 @@ export default function Store() {
                   </div>
                   <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
                     <div>
-                      <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
-                        {title}
+                      <h3 className="flex font-medium md:text-lg md:mt-2 md:mb-1">
+                        <p className="pr-2">{title}</p>
+                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md px-2">
+                          Sale
+                        </span>
                       </h3>
                       <p className="font-extralight text-sm mb-2">
                         {tags
@@ -319,7 +325,7 @@ export default function Store() {
           </div>
         </div>
 
-        <div className="py-4">
+        <div className="py-2">
           <h2 className="text-2xl pb-4">RPG Games:</h2>
           <hr className="border-[#5A189A]" />
           <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
@@ -368,7 +374,7 @@ export default function Store() {
           </div>
         </div>
 
-        <div>
+        <div className="py-2">
           <h2 className="text-2xl py-4">Shooter Games:</h2>
           <hr className="border-[#5A189A]" />
           <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">

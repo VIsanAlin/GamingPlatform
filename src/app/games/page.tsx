@@ -14,9 +14,19 @@ interface Game {
   title: string;
   image: string;
   price: number;
-  platforms: string[];
   tags: string[];
+  platforms: string[];
+  sale?: {
+    price: string;
+    start: string;
+    end: string;
+  };
+  aboutGame: string[];
   category: string;
+  description: string;
+  features: string[];
+  publisher: string;
+  release: string;
 }
 
 export default function Products() {
@@ -111,6 +121,30 @@ export default function Products() {
 
   // Add To Cart
 
+  const handleAddToCart = (gameData: Partial<Game>) => {
+    const cartItems = JSON.parse(sessionStorage.getItem("cart") || "[]");
+    const game: Game = {
+      id: gameData.id || "",
+      title: gameData.title || "",
+      image: gameData.image || "",
+      price: gameData.price || 0,
+      platforms: gameData.platforms || [],
+      tags: gameData.tags || [],
+      sale: gameData.sale || undefined,
+      aboutGame: gameData.aboutGame || [],
+      category: gameData.category || "",
+      description: gameData.description || "",
+      features: gameData.features || [],
+      publisher: gameData.publisher || "",
+      release: gameData.release || "",
+    };
+    const newCart = [...cartItems, game];
+    sessionStorage.setItem("cart", JSON.stringify(newCart));
+
+    window.dispatchEvent(new Event("storage"));
+  };
+  `
+`;
   ////////////////////////////////
 
   return (
@@ -240,7 +274,7 @@ export default function Products() {
                   <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:w-auto  md:overflow-hidden">
                     <img src={image} alt={title} className="object-cover " />
                   </div>
-                  <div className="md:flex md:justify-between px-2 py-2">
+                  <div className="md:grid  px-2 py-2">
                     <div>
                       <h3 className="flex items-center md:text-lg font-medium ">
                         {title}
@@ -255,9 +289,19 @@ export default function Products() {
                       </p>
                     </div>
                     <div>
-                      <p className="font-light text-lg text-eightColor">
-                        €{price}
-                      </p>
+                      <div className="flex p-2">
+                        <p className="font-medium text-lg text-eightColor pl-2 py-2 w-1/3">
+                          €{price}
+                        </p>
+                        <button
+                          onClick={() =>
+                            handleAddToCart({ id, title, image, price })
+                          }
+                          className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
+                        >
+                          Buy
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </Link>
