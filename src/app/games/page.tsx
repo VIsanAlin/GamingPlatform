@@ -67,7 +67,7 @@ export default function Products() {
   }
 
   // Category
-  const [isCategoriesVisible, setIsCategoriesVisible] = useState(true);
+  const [isCategoriesVisible, setIsCategoriesVisible] = useState(false);
   const [chosenCategories, setChosenCategories] = useState([""]);
   const toggleCategories = () => {
     setIsCategoriesVisible((prevVisibility) => !prevVisibility);
@@ -125,13 +125,21 @@ export default function Products() {
         />
       </div>
       <div className="lg:px-40 md:px-32 py-4 px-10 text-fiveColor">
-        <div className="pb-4" onClick={toggleCategories}>
-          Categories
+        <div
+          className=" pb-4 xl:w-1/5 lg:w-1/4 w-1/3"
+          onClick={toggleCategories}
+        >
+          <p className="border-fiveColor border-2 rounded-lg text-eightColor text-center py-1 ">
+            Categories
+          </p>
         </div>
         {isCategoriesVisible && (
-          <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 lg:w-1/2 text-eightColor ">
+          <div className="grid xl:grid-cols-5 lg:grid-cols-4 grid-cols-2 gap-4 text-eightColor ">
             {uniqueCategories.map((category) => (
-              <div className="flex space-x-2" key={category}>
+              <div
+                className="flex space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
+                key={category}
+              >
                 <input
                   className="rounded-xl"
                   type="checkbox"
@@ -153,66 +161,71 @@ export default function Products() {
         </div>
         <hr className="border-[#5A189A]" />
 
-        <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 py-4">
-          {searchedGames.map(({ title, image, price, tags, platforms, id }) => (
-            <Link
-              href="/games/item=[id]"
-              as={`/games/item=${id}`}
-              key={id}
-              className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor"
-              onClick={(event) => {
-                if (
-                  (event.target as Element).tagName.toLowerCase() === "button"
-                ) {
-                  console.log("A button was clicked");
-                  event.preventDefault();
-                } else {
-                  // Manually navigate to the game page
-                  console.log("not a button pushed");
-                }
-              }}
-            >
-              <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
-                <img
-                  src={image}
-                  alt={image}
-                  className="object-cover md:object-fill md:h-full md:w-full "
-                />
-              </div>
-              <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
-                <div>
-                  <h3 className="flex items-center font-medium md:text-lg md:mt-2 md:mb-1">
-                    {title}
-                    {platforms.map((platform) => (
-                      <div className="px-1" key={platform}>
-                        {platformsIcon(platform)}
-                      </div>
-                    ))}
-                  </h3>
-                  <p className="font-extralight text-sm md:mb-2">
-                    {tags
-                      .slice(0, 2)
-                      .map((tag) => `${tag} `)
-                      .join(" • ")}
-                  </p>
-                </div>
+        {searchedGames && (
+          <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 py-4">
+            {searchedGames.map(
+              ({ title, image, price, tags, platforms, id }) => (
+                <Link
+                  href="/games/item=[id]"
+                  as={`/games/item=${id}`}
+                  key={id}
+                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor"
+                  onClick={(event) => {
+                    if (
+                      (event.target as Element).tagName.toLowerCase() ===
+                      "button"
+                    ) {
+                      console.log("A button was clicked");
+                      event.preventDefault();
+                    } else {
+                      // Manually navigate to the game page
+                      console.log("not a button pushed");
+                    }
+                  }}
+                >
+                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
+                    <img
+                      src={image}
+                      alt={image}
+                      className="object-cover md:object-fill md:h-full md:w-full "
+                    />
+                  </div>
+                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
+                    <div>
+                      <h3 className="flex items-center font-medium md:text-lg md:mt-2 md:mb-1">
+                        {title}
+                        {platforms.map((platform) => (
+                          <div className="px-1" key={platform}>
+                            {platformsIcon(platform)}
+                          </div>
+                        ))}
+                      </h3>
+                      <p className="font-extralight text-sm md:mb-2">
+                        {tags
+                          .slice(0, 2)
+                          .map((tag) => `${tag} `)
+                          .join(" • ")}
+                      </p>
+                    </div>
 
-                <div className="flex p-2">
-                  <button className="flex font-medium text-lg md:text-forthColor md:bg-eightColor md:rounded-lg py-2">
-                    Add To Cart
-                    <p className="font-medium text-lg md:text-forthColor pl-2">
-                      €{price}
-                    </p>
-                  </button>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+                    <div className="flex p-2">
+                      <button className="flex font-medium text-lg md:text-forthColor md:bg-eightColor md:rounded-lg py-2">
+                        Add To Cart
+                        <p className="font-medium text-lg md:text-forthColor pl-2">
+                          €{price}
+                        </p>
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+              )
+            )}
+          </div>
+        )}
 
         <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 py-4"></div>
 
-        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 md:py-12 md:px-8">
+        <div className="flex flex-col md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 md:py-12 md:px-8">
           {games &&
             games
               .slice(0, visibleGames)

@@ -3,6 +3,12 @@ import React, { useState, useEffect, cache } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
 import Carousel from "../../components/Carousel";
+import {
+  BsSteam,
+  BsPlaystation,
+  BsXbox,
+  BsNintendoSwitch,
+} from "react-icons/bs";
 
 interface Game {
   id: string;
@@ -10,6 +16,7 @@ interface Game {
   image: string;
   price: number;
   tags: string[];
+  platforms: string[];
   sale?: {
     price: string;
     start: string;
@@ -69,6 +76,23 @@ export default function Store() {
     setFilteredGames(filtered);
   }, [games]);
 
+  function platformsIcon(platforms: string) {
+    {
+      switch (platforms) {
+        case "PC":
+          return <BsSteam />;
+        case "Playstation":
+          return <BsPlaystation />;
+        case "Xbox":
+          return <BsXbox />;
+        case "Nintendo Switch":
+          return <BsNintendoSwitch />;
+        default:
+          return null;
+      }
+    }
+  }
+
   // Load More Games
   const [visibleGames, setVisibleGames] = useState(12);
 
@@ -85,6 +109,7 @@ export default function Store() {
       title: gameData.title || "",
       image: gameData.image || "",
       price: gameData.price || 0,
+      platforms: gameData.platforms || [],
       tags: gameData.tags || [],
       sale: gameData.sale || undefined,
       aboutGame: gameData.aboutGame || [],
@@ -116,15 +141,58 @@ export default function Store() {
           <Carousel images={images} />
         </div>
 
+        <div className="py-2">
+          <h2 className="text-2xl pb-4">Categories</h2>
+          <hr className="border-[#5A189A] mb-4" />
+          <div className="flex flex-col md:grid md:grid-cols-2 2lg:grid-cols-4 md:gap-6 md:py-12 md:px-8">
+            <Link
+              href="/games"
+              as={`/games`}
+              key={1}
+              className="px-6 py-6 border rounded-xl self-center text-center"
+            >
+              {" "}
+              <h2>Action Games</h2>{" "}
+            </Link>
+            <Link
+              href="/games"
+              as={`/games`}
+              key={2}
+              className="px-6 py-6 border rounded-xl self-center text-center"
+            >
+              {" "}
+              <h2>RPG Games</h2>{" "}
+            </Link>
+            <Link
+              href="/games"
+              as={`/games`}
+              key={3}
+              className="px-6 py-6 border rounded-xl self-center text-center"
+            >
+              {" "}
+              <h2>Fantasy Games</h2>{" "}
+            </Link>
+            <Link
+              href="/games"
+              as={`/games`}
+              key={4}
+              className="px-6 py-6 border rounded-xl self-center text-center"
+            >
+              {" "}
+              <h2>Shooter Games</h2>{" "}
+            </Link>
+          </div>
+        </div>
+
         {/* Separate divs for Fantasy, RPG, and Shooter */}
-        <div className="py-4 ">
+        <div className="py-2 ">
           <h2 className="text-2xl py-4">Popular Games</h2>
           <hr className="border-[#5A189A] " />
-          <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 ">
+          <div className="flex flex-col md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 ">
             {filteredGames
               .filter((game) => game.tags.includes("Fantasy"))
               .slice(0, visibleGames)
-              .map(({ title, image, price, tags, id }) => (
+              .map(({ title, image, price, tags, platforms, id }) => (
                 <Link
                   href="/games/item=[id]"
                   as={`/games/item=${id}`}
@@ -155,7 +223,72 @@ export default function Store() {
                       <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
                         {title}
                       </h3>
+
                       <p className="font-extralight text-sm md:mb-2">
+                        {tags
+                          .slice(0, 2)
+                          .map((tag) => `${tag} `)
+                          .join(" • ")}
+                      </p>
+                      <div className="flex items-center">
+                        {platforms.map((platform) => (
+                          <div className="px-1" key={platform}>
+                            {platformsIcon(platform)}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex p-2">
+                      <p className="font-medium text-lg text-eightColor pl-2 py-2 w-1/3">
+                        €{price}
+                      </p>
+                      <button
+                        onClick={() =>
+                          handleAddToCart({ id, title, image, price })
+                        }
+                        className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
+                      >
+                        Buy
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          </div>
+        </div>
+
+        <div className="py-2">
+          <h2 className="text-2xl py-4">Sales</h2>
+          <hr className="border-[#5A189A]" />
+          <div className="flex flex-col md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
+            {filteredGames
+              .filter(
+                (game) =>
+                  game.sale &&
+                  game.sale.price !== null &&
+                  game.sale.price !== "Free"
+              )
+              .map(({ title, image, sale, tags, id }) => (
+                <Link
+                  href="/games/item=[id]"
+                  as={`/games/item=${id}`}
+                  key={id}
+                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
+                >
+                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
+                    <img
+                      src={image}
+                      alt={title}
+                      className="object-cover md:object-fill md:h-full md:w-full"
+                    />
+                  </div>
+                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
+                    <div>
+                      <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
+                        {title}
+                      </h3>
+                      <p className="font-extralight text-sm mb-2">
                         {tags
                           .slice(0, 2)
                           .map((tag) => `${tag} `)
@@ -164,16 +297,20 @@ export default function Store() {
                     </div>
 
                     <div className="flex p-2">
+                      <div className="font-medium text-lg text-eightColor pl-2 py-2 w-1/3">
+                        {sale && sale.price !== undefined ? (
+                          <p className="font-semibold text-lg text-green-700 pl-4">
+                            €{sale.price}
+                          </p>
+                        ) : null}
+                      </div>
                       <button
                         onClick={() =>
-                          handleAddToCart({ id, title, image, price })
+                          handleAddToCart({ id, title, image, sale })
                         }
-                        className="flex font-medium text-lg md:text-forthColor md:bg-eightColor md:rounded-lg py-2"
+                        className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
                       >
-                        Add To Cart
-                        <p className="font-medium text-lg md:text-forthColor pl-2">
-                          €{price}
-                        </p>
+                        Buy
                       </button>
                     </div>
                   </div>
@@ -284,108 +421,6 @@ export default function Store() {
                   </div>
                 </Link>
               ))}
-          </div>
-        </div>
-
-        <div>
-          <h2 className="text-2xl py-4">Sales</h2>
-          <hr className="border-[#5A189A]" />
-          <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
-            {filteredGames
-              .filter(
-                (game) =>
-                  game.sale &&
-                  game.sale.price !== null &&
-                  game.sale.price !== "Free"
-              )
-              .map(({ title, image, sale, tags, id }) => (
-                <Link
-                  href="/games/item=[id]"
-                  as={`/games/item=${id}`}
-                  key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
-                >
-                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
-                    <img
-                      src={image}
-                      alt={title}
-                      className="object-cover md:object-fill md:h-full md:w-full"
-                    />
-                  </div>
-                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
-                    <div>
-                      <h3 className="font-medium md:text-lg md:mt-2 md:mb-1">
-                        {title}
-                      </h3>
-                      <p className="font-extralight text-sm mb-2">
-                        {tags
-                          .slice(0, 2)
-                          .map((tag) => `${tag} `)
-                          .join(" • ")}
-                      </p>
-                    </div>
-
-                    <div className="flex md:justify-end">
-                      <button
-                        onClick={() =>
-                          handleAddToCart({ id, title, image, sale })
-                        }
-                        className="flex font-medium text-lg text-tenColor"
-                      >
-                        Add To Cart{" "}
-                        {sale && sale.price !== undefined ? (
-                          <p className="font-light text-lg text-green-700 pl-4">
-                            €{sale.price}
-                          </p>
-                        ) : null}
-                      </button>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-          </div>
-        </div>
-
-        <div className="py-4">
-          <h2 className="text-2xl pb-4">Categories</h2>
-          <hr className="border-[#5A189A] mb-4" />
-          <div className="flex flex-col md:grid md:grid-cols-2 2lg:grid-cols-4 md:gap-6 md:py-12 md:px-8">
-            <Link
-              href="/games"
-              as={`/games`}
-              key={1}
-              className="px-6 py-6 border rounded-xl self-center text-center"
-            >
-              {" "}
-              <h2>Action Games</h2>{" "}
-            </Link>
-            <Link
-              href="/games"
-              as={`/games`}
-              key={2}
-              className="px-6 py-6 border rounded-xl self-center text-center"
-            >
-              {" "}
-              <h2>RPG Games</h2>{" "}
-            </Link>
-            <Link
-              href="/games"
-              as={`/games`}
-              key={3}
-              className="px-6 py-6 border rounded-xl self-center text-center"
-            >
-              {" "}
-              <h2>Fantasy Games</h2>{" "}
-            </Link>
-            <Link
-              href="/games"
-              as={`/games`}
-              key={4}
-              className="px-6 py-6 border rounded-xl self-center text-center"
-            >
-              {" "}
-              <h2>Shooter Games</h2>{" "}
-            </Link>
           </div>
         </div>
       </div>
