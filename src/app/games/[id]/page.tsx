@@ -182,7 +182,12 @@ export default function GameDetails() {
                       <span className="text-eightColor">{release}</span>
                     </p>
                     <p className="text-fiveColor mb-2">
-                      Platforms {platformsIcon(platforms)}
+                      Platforms{" "}
+                      {platforms.map((platform) => (
+                        <div className="px-1" key={platform}>
+                          {platformsIcon(platform)}
+                        </div>
+                      ))}
                     </p>
                     <p className="hidden md:block font-extralight text-eightColor text-sm mb-2">
                       Tags :{" "}
