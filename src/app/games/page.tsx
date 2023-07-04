@@ -8,6 +8,7 @@ import {
   BsXbox,
   BsNintendoSwitch,
 } from "react-icons/bs";
+import { platform } from "os";
 
 interface Game {
   id: string;
@@ -103,6 +104,34 @@ export default function Products() {
 
   const uniqueCategories = categoryList();
 
+  //  Platforms
+  const [isPlatformsVisible, setIsPlatformsVisible] = useState(false);
+  const [chosenPlatforms, setChosenPlatforms] = useState<string[]>([]);
+  const togglePlatforms = () => {
+    setIsPlatformsVisible((prevVisibility) => !prevVisibility);
+  };
+
+  function platformList() {
+    const platforms = games.reduce((uniquePlatforms: string[], game) => {
+      game.platforms.forEach((platform) => {
+        if (!uniquePlatforms.includes(platform)) {
+          if (platform !== "") uniquePlatforms.push(platform);
+        }
+      });
+      return uniquePlatforms;
+    }, []);
+    return platforms;
+  }
+
+  const chosenPlats = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const platform = event.target.name;
+    console.log(platform);
+    setChosenPlatforms([platform]);
+    console.log(chosenPlatforms);
+  };
+
+  const uniquePlatforms = platformList();
+
   // Search Bar
   const [searchValue, setSearchValue] = useState("");
   const [searchedGames, setSearchedGames] = useState<Game[]>([]);
@@ -182,6 +211,35 @@ export default function Products() {
                   onChange={chosenCategory}
                 />
                 <p>{category}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="lg:px-40 md:px-32 py-4 px-10 text-fiveColor">
+        <div
+          className=" pb-4 xl:w-1/5 lg:w-1/4 w-1/3"
+          onClick={togglePlatforms}
+        >
+          <p className="border-fiveColor border-2 rounded-lg text-eightColor text-center py-1">
+            Platforms
+          </p>
+        </div>
+        {isPlatformsVisible && (
+          <div className="grid xl:grid-cols-5 lg:grid-cols-4 grid-cols-2 gap-4 text-eightColor ">
+            {uniquePlatforms.map((platform) => (
+              <div
+                className="flex space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
+                key={platform}
+              >
+                <input
+                  className="rounded-xl"
+                  type="checkbox"
+                  name={platform}
+                  id={platform}
+                  onChange={chosenPlats}
+                />
+                <p>{platform}</p>
               </div>
             ))}
           </div>

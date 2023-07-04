@@ -71,32 +71,39 @@ const Cart: React.FC = () => {
                 {cartItems &&
                   cartItems.map((item) => (
                     <div key={item.id} className=" pb-6">
-                      <div className="flex justify-between">
+                      <div className="flex space-x-4 text-eightColor">
                         <img
                           src={item.image}
                           alt={item.image}
-                          className="object-cover w-1/2 h-1/2 "
+                          className="object-cover w-1/2 h-1/2 rounded-md"
                         />
                         <div className="">
-                          <p className="pb-2">{item.title}</p>
-                          <p className="pb-2">Quantity: 1</p>
-                          <p className="pb-2">
+                          <p className=" pb-2">{item.title}</p>
+                          <p className=" pb-2">Quantity: 1</p>
+                          <p className=" pb-2">
                             Price: ${item.sale ? item.sale.price : item.price}{" "}
                           </p>
+                          <button
+                            onClick={() => removeFromCart(item.id)}
+                            className="pb-2"
+                          >
+                            Remove
+                          </button>
                         </div>
                       </div>
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="pl-52 pt-2"
-                      >
-                        Remove
-                      </button>
                     </div>
                   ))}
-                <p>Total Price: ${getTotal()}</p>
+                <p className="font-medium text-lg pb-2">
+                  Total Price: ${getTotal()}
+                </p>
 
                 <Link href="order" className="text-eightColor">
-                  <button onClick={toggleCart}>Checkout</button>
+                  <button
+                    className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3 mx-auto"
+                    onClick={toggleCart}
+                  >
+                    Checkout
+                  </button>
                 </Link>
               </div>
             )}

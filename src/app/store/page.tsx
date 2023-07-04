@@ -3,6 +3,8 @@ import React, { useState, useEffect, cache } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
 import Carousel from "../../components/Carousel";
+import Image from "next/image";
+import ActionIcon from "../../../public/categ/icons8-sword-64.png";
 import {
   BsSteam,
   BsPlaystation,
@@ -144,14 +146,18 @@ export default function Store() {
         <div className="py-2">
           <h2 className="text-2xl pb-4">Categories</h2>
           <hr className="border-[#5A189A] mb-4" />
-          <div className="flex flex-col md:grid md:grid-cols-2 2lg:grid-cols-4 md:gap-6 md:py-12 md:px-8">
+          <div className="flex flex-row row-span-6 gap-6 md:py-12 md:px-8 overflow-hidden">
             <Link
               href="/games"
               as={`/games`}
               key={1}
-              className="px-6 py-6 border rounded-xl self-center text-center"
+              className="flex flex-col px-6 py-6 border rounded-xl self-center text-center "
             >
-              {" "}
+              <img
+                src="categ/icons8-sword-64.png"
+                alt="Action Icon"
+                className="lg:pl-8 lg:w-2/3 "
+              />
               <h2>Action Games</h2>{" "}
             </Link>
             <Link
@@ -160,8 +166,12 @@ export default function Store() {
               key={2}
               className="px-6 py-6 border rounded-xl self-center text-center"
             >
-              {" "}
-              <h2>RPG Games</h2>{" "}
+              <img
+                src="categ/icons8-adventure-64.png"
+                alt="Action Icon"
+                className="lg:pl-8 lg:w-2/3 "
+              />
+              <h2>Adventure Games</h2>{" "}
             </Link>
             <Link
               href="/games"
@@ -169,7 +179,11 @@ export default function Store() {
               key={3}
               className="px-6 py-6 border rounded-xl self-center text-center"
             >
-              {" "}
+              <img
+                src="categ/icons8-mage-staff-64.png"
+                alt="Action Icon"
+                className="lg:pl-8 lg:w-2/3"
+              />
               <h2>Fantasy Games</h2>{" "}
             </Link>
             <Link
@@ -178,7 +192,11 @@ export default function Store() {
               key={4}
               className="px-6 py-6 border rounded-xl self-center text-center"
             >
-              {" "}
+              <img
+                src="categ/icons8-assault-rifle-64.png"
+                alt="Action Icon"
+                className="lg:pl-8 lg:w-2/3"
+              />
               <h2>Shooter Games</h2>{" "}
             </Link>
           </div>

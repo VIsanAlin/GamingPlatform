@@ -132,7 +132,7 @@ export default function GameDetails() {
 
   return (
     <div className="bg-firstColor">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 py-12 px-8">
+      <div className="grid gap-6 py-12 px-8">
         {game &&
           game.map(
             ({
@@ -151,56 +151,63 @@ export default function GameDetails() {
               price,
               tags,
             }) => (
-              <div key={id} className="rounded-lg shadow-2xl shadow-fiveColor">
-                <div className=" overflow-hidden rounded-2xl">
-                  <img
-                    src={image}
-                    alt={title}
-                    className="object-cover h-full w-full"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="flex items-center text-fiveColor text-2xl font-medium  ">
-                    {title}
-                    {platforms.map((platform) => (
-                      <div className="px-1" key={platform}>
-                        {platformsIcon(platform)}
-                      </div>
-                    ))}
-                  </h3>
-
-                  <h2 className="text-fiveColor text-lg font-medium">
-                    Publisher :{" "}
-                    <span className="text-eightColor">{publisher}</span>
-                  </h2>
-
-                  <p className="text-fiveColor text-lg">
-                    Release date :{" "}
-                    <span className="text-eightColor">{release}</span>
-                  </p>
-                  <p className="text-fiveColor mb-2">Categories :</p>
-                  <p className="hidden md:block font-extralight text-eightColor text-sm mb-2">
-                    Tags :{" "}
-                    {tags
-                      .slice(0, 3)
-                      .map((tag) => `${tag} `)
-                      .join(" • ")}
-                  </p>
-
-                  <hr />
-                  <div className="flex justify-between py-4">
-                    <p className="font-medium text-lg text-forthColor pl-2 py-2 w-1/3">
-                      €{price}
-                    </p>
-                    <button
-                      onClick={() =>
-                        handleAddToCart({ id, title, image, price })
-                      }
-                      className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
-                    >
-                      Buy
-                    </button>
+              <div
+                key={id}
+                className="grid rounded-lg shadow-2xl shadow-fiveColor"
+              >
+                <div className="lg:flex grid">
+                  <div className=" overflow-hidden rounded-2xl">
+                    <img
+                      src={image}
+                      alt={title}
+                      className="object-cover h-full w-full"
+                    />
                   </div>
+
+                  <div className="p-4 pb-0">
+                    <h3 className="flex items-center text-fiveColor text-2xl font-medium  ">
+                      {title}
+                      {platforms.map((platform) => (
+                        <div className="px-1" key={platform}>
+                          {platformsIcon(platform)}
+                        </div>
+                      ))}
+                    </h3>
+                    <h2 className="text-fiveColor text-lg font-medium">
+                      Publisher :{" "}
+                      <span className="text-eightColor">{publisher}</span>
+                    </h2>
+                    <p className="text-fiveColor text-lg">
+                      Release date :{" "}
+                      <span className="text-eightColor">{release}</span>
+                    </p>
+                    <p className="text-fiveColor mb-2">
+                      Platforms {platformsIcon(platforms)}
+                    </p>
+                    <p className="hidden md:block font-extralight text-eightColor text-sm mb-2">
+                      Tags :{" "}
+                      {tags
+                        .slice(0, 3)
+                        .map((tag) => `${tag} `)
+                        .join(" • ")}
+                    </p>
+                    <hr />
+                    <div className="flex justify-between py-4">
+                      <p className="font-medium text-lg text-forthColor pl-2 py-2 w-1/3">
+                        €{price}
+                      </p>
+                      <button
+                        onClick={() =>
+                          handleAddToCart({ id, title, image, price })
+                        }
+                        className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
+                      >
+                        Buy
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="lg:w-1/2 p-4 pt-0">
                   <hr className="py-2" />
                   <div className="pb-4">
                     <p className="text-fiveColor text-xl text-bold text-center">

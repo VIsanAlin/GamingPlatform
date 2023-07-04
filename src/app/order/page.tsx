@@ -115,8 +115,10 @@ export default function Order() {
 
   return (
     <div className="bg-firstColor p-4 lg:p-12">
-      <h2>Order Details</h2>
-      <p>This information is going into the database</p>
+      <h2 className="text-fiveColor mx-auto text-center">Order Details</h2>
+      <p className="text-eightColor mx-auto text-center">
+        This information is going into the database
+      </p>
       <div className="p-4">
         {orderItems.length === 0 ? (
           <div className="text-center pt-10">
@@ -124,27 +126,32 @@ export default function Order() {
           </div>
         ) : (
           <div className="py-10 space-y-4">
-            <h2>Ordered items</h2>
+            <h2 className="text-fiveColor mx-auto text-center">
+              Ordered items
+            </h2>
             <hr />
             {orderItems.map((item) => (
-              <div key={item.id} className="pb-6">
+              <div key={item.id} className="bg-forthColor bg-opacity-20  ">
                 <div className="flex pr-4 space-x-4">
                   <img
                     src={item.image}
                     alt={item.image}
-                    className="object-cover w-1/3 h-1/3 lg:w-1/4 lg:h-1/4"
+                    className="pl-2 object-cover w-1/3 h-1/3 lg:w-1/3 lg:h-1/3  my-auto"
                   />
-                  <div className="">
+                  <div className="text-eightColor">
                     <p className="pb-2">{item.title}</p>
                     <p className="pb-2">Quantity: {item.quantity}</p>
                     <p className="pb-2">
                       Price: ${item.sale ? item.sale.price : item.price}
                     </p>
+                    <button className="pb-2">Remove</button>
                   </div>
                 </div>
               </div>
             ))}
-            <p>Total Price: ${getTotal()}</p>
+            <p className="text-eightColor text-lg font-medium text-end pr-2">
+              Total Price: ${getTotal()}
+            </p>
           </div>
         )}
       </div>
