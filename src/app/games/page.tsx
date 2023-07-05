@@ -8,7 +8,6 @@ import {
   BsXbox,
   BsNintendoSwitch,
 } from "react-icons/bs";
-import { platform } from "os";
 
 interface Game {
   id: string;

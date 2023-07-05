@@ -4,6 +4,7 @@ import * as Realm from "realm-web";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import featureIcon from "../../../../public/star.png";
+import CarouselID from "@/components/Carouselid";
 import {
   BsSteam,
   BsPlaystation,
@@ -15,6 +16,7 @@ interface Game {
   id: string;
   title: string;
   image: string;
+  otherImages: string[];
   price: number;
   tags: string[];
   platforms: string[];
@@ -98,6 +100,7 @@ export default function GameDetails() {
       id: gameData.id || "",
       title: gameData.title || "",
       image: gameData.image || "",
+      otherImages: gameData.otherImages || [],
       price: gameData.price || 0,
       platforms: gameData.platforms || [],
       tags: gameData.tags || [],
@@ -138,6 +141,7 @@ export default function GameDetails() {
             ({
               id,
               image,
+              otherImages,
               title,
               description,
               reviews,
@@ -156,49 +160,44 @@ export default function GameDetails() {
                 className="grid rounded-lg shadow-2xl shadow-fiveColor"
               >
                 <div className="lg:flex grid">
-                  <div className=" overflow-hidden rounded-2xl">
+                  <div className="lg:p-4 overflow-hidden ">
                     <img
                       src={image}
                       alt={title}
-                      className="object-cover h-full w-full"
+                      className="object-cover h-full w-full rounded-2xl"
                     />
                   </div>
 
-                  <div className="p-4 pb-0">
-                    <h3 className="flex items-center text-fiveColor text-2xl font-medium  ">
+                  <div className=" p-4 pb-0 space-y-2 ">
+                    <h3 className=" text-fiveColor text-2xl font-medium  ">
                       {title}
-                      {platforms.map((platform) => (
-                        <div className="px-1" key={platform}>
-                          {platformsIcon(platform)}
-                        </div>
-                      ))}
                     </h3>
-                    <h2 className="text-fiveColor text-lg font-medium">
+                    <h2 className="text-fiveColor lg:text-xl text-lg font-medium">
                       Publisher :{" "}
                       <span className="text-eightColor">{publisher}</span>
                     </h2>
-                    <p className="text-fiveColor text-lg">
+                    <p className="text-fiveColor lg:text-xl text-lg">
                       Release date :{" "}
                       <span className="text-eightColor">{release}</span>
                     </p>
-                    <p className="text-fiveColor mb-2">
+                    <p className="flex items-center lg:text-xl text-lg text-fiveColor mb-2 ">
                       Platforms{" "}
                       {platforms.map((platform) => (
-                        <div className="px-1" key={platform}>
+                        <span className="px-2" key={platform}>
                           {platformsIcon(platform)}
-                        </div>
+                        </span>
                       ))}
                     </p>
-                    <p className="hidden md:block font-extralight text-eightColor text-sm mb-2">
+                    <p className="hidden md:block font-extralight text-eightColor lg:text-xl text-sm mb-2">
                       Tags :{" "}
                       {tags
                         .slice(0, 3)
                         .map((tag) => `${tag} `)
                         .join(" • ")}
                     </p>
-                    <hr />
+
                     <div className="flex justify-between py-4">
-                      <p className="font-medium text-lg text-forthColor pl-2 py-2 w-1/3">
+                      <p className="font-medium text-lg text-forthColor text-right pr-4 py-2 w-1/3">
                         €{price}
                       </p>
                       <button
@@ -213,7 +212,9 @@ export default function GameDetails() {
                   </div>
                 </div>
                 <div className="lg:w-1/2 p-4 pt-0">
-                  <hr className="py-2" />
+                  <div>
+                    <CarouselID images={otherImages} />
+                  </div>
                   <div className="pb-4">
                     <p className="text-fiveColor text-xl text-bold text-center">
                       Reviewers
