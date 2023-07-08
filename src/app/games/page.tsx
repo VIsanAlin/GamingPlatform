@@ -232,7 +232,10 @@ export default function Products() {
         />
       </div>
       <div className="lg:px-40 md:px-32 py-4 px-10 text-fiveColor">
-        <div className="  xl:w-1/5 lg:w-1/4 w-1/3" onClick={toggleCategories}>
+        <div
+          className="  xl:w-1/5 lg:w-1/4 w-1/3 bg-gradient-to-r from-secondColor to-fiveColor rounded-lg"
+          onClick={toggleCategories}
+        >
           <p className="border-fiveColor border-2 rounded-lg text-eightColor text-center py-1 ">
             Categories
           </p>
@@ -272,7 +275,10 @@ export default function Products() {
         )}
       </div>
       <div className="lg:px-40 md:px-32 py-4 px-10 text-fiveColor">
-        <div className="  xl:w-1/5 lg:w-1/4 w-1/3" onClick={togglePlatforms}>
+        <div
+          className="  xl:w-1/5 lg:w-1/4 w-1/3 bg-gradient-to-r from-secondColor via-fiveColor to-eightColor rounded-lg"
+          onClick={togglePlatforms}
+        >
           <p className="border-fiveColor border-2 rounded-lg text-eightColor text-center py-1">
             Platforms
           </p>
@@ -281,7 +287,7 @@ export default function Products() {
           <div className="grid xl:grid-cols-5 lg:grid-cols-4 grid-cols-2 gap-4 text-eightColor ">
             {uniquePlatforms.map((platform) => (
               <div
-                className="flex space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
+                className="flex space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10 mt-4"
                 key={platform}
               >
                 <input
@@ -297,7 +303,7 @@ export default function Products() {
           </div>
         )}
       </div>
-      <div className="lg:px-40 md:px-32 md:py-24 px-10 py-10">
+      <div className="lg:px-40 md:px-32  px-10 py-4">
         <div className="text-4xl pb-8">
           <h2 className="text-2xl md:text-4xl text-[#e6bbff]">
             Unlock Your Gaming Adventure with Unbeatable Prices!
@@ -306,14 +312,14 @@ export default function Products() {
         <hr className="border-[#5A189A]" />
 
         {searchedGames && (
-          <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 py-4">
+          <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:px-8 ">
             {searchedGames.map(
               ({ title, image, price, tags, platforms, id }) => (
                 <Link
                   href="/games/item=[id]"
                   as={`/games/item=${id}`}
                   key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor"
+                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor mt-8"
                   onClick={(event) => {
                     if (
                       (event.target as Element).tagName.toLowerCase() ===
@@ -367,7 +373,7 @@ export default function Products() {
           </div>
         )}
 
-        <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 py-4">
+        <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:px-8 ">
           {filteredGames && (
             <div>
               {filteredGames.map(
@@ -376,7 +382,7 @@ export default function Products() {
                     href="/games/item=[id]"
                     as={`/games/item=${id}`}
                     key={id}
-                    className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor"
+                    className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor mt-8"
                     onClick={(event) => {
                       if (
                         (event.target as Element).tagName.toLowerCase() ===
