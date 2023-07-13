@@ -420,7 +420,10 @@ export default function Products() {
                       </div>
                       <div className="text-xs font-extralight">
                         {tags.slice(0, 2).map((tag) => (
-                          <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md p-1">
+                          <span
+                            className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md p-1"
+                            key={tag}
+                          >
                             {tag}
                           </span>
                         ))}
