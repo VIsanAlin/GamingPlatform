@@ -63,7 +63,7 @@ const CarouselID = ({ images }: { images: string[] }) => {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="relative block z-0 w-full lg:w-[70%]">
+        <div className="relative block z-0 w-full lg:w-[85%] mx-auto">
           <img
             src={images[currentImageIndex]}
             alt={`Slide ${currentImageIndex}`}

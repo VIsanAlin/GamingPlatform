@@ -160,11 +160,11 @@ export default function GameDetails() {
                 className="grid rounded-lg shadow-2xl shadow-fiveColor"
               >
                 <div className="lg:flex grid">
-                  <div className="lg:p-4 overflow-hidden ">
+                  <div className="lg:p-4 lg:w-2/3 overflow-hidden ">
                     <img
                       src={image}
                       alt={title}
-                      className="object-cover h-full w-full rounded-2xl"
+                      className="object-cover  rounded-2xl"
                     />
                   </div>
 
@@ -211,7 +211,7 @@ export default function GameDetails() {
                     </div>
                   </div>
                 </div>
-                <div className="lg:w-1/2 p-4 pt-0">
+                <div className="lg:w-2/3 p-4 pt-0">
                   <div>
                     <CarouselID images={otherImages} />
                   </div>

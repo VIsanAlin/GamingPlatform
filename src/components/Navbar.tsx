@@ -25,7 +25,7 @@ function Logo() {
 export default function Navbar() {
   return (
     <nav className="bg-firstColor sticky top-0 z-10">
-      <div className="flex justify-between py-2 lg:px-40 px-6">
+      <div className="flex justify-between py-2 lg:px-20 px-6">
         <div className="flex ">
           <Logo />
           <div className="hidden md:flex space-x-4 pt-4">
