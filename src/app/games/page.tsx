@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
 import {
+  BsSearch,
   BsSteam,
   BsPlaystation,
   BsXbox,
@@ -13,7 +14,7 @@ interface Game {
   id: string;
   title: string;
   image: string;
-  price: number;
+  price: string;
   tags: string[];
   platforms: string[];
   sale?: {
@@ -83,7 +84,7 @@ export default function Products() {
   const [isPriceVisible, setIsPriceVisible] = useState(false);
   const [chosenCategories, setChosenCategories] = useState<string[]>([]);
   const [chosenPlatforms, setChosenPlatforms] = useState<string[]>([]);
-  const [chosenPrice, setChosenPrice] = useState<number | null>(null);
+  const [chosenPrice, setChosenPrice] = useState<string>();
   const categoriesRef = useRef<HTMLDivElement>(null);
   const platformsRef = useRef<HTMLDivElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
@@ -93,14 +94,14 @@ export default function Products() {
     setIsPlatformsVisible(false);
     setIsPriceVisible(false);
     setChosenPlatforms([]);
-    setChosenPrice(null);
+    setChosenPrice("");
   };
   const togglePlatforms = () => {
     setIsPlatformsVisible((prevVisibility) => !prevVisibility);
     setIsPriceVisible(false);
     setIsCategoriesVisible(false);
     setChosenCategories([]);
-    setChosenPrice(null);
+    setChosenPrice("");
   };
   const togglePrice = () => {
     setIsPriceVisible((prevVisibility) => !prevVisibility);
@@ -108,7 +109,6 @@ export default function Products() {
     setIsPlatformsVisible(false);
     setChosenCategories([]);
     setChosenPlatforms([]);
-    setChosenPrice(0);
   };
 
   function categoryList() {
@@ -135,13 +135,13 @@ export default function Products() {
   }
 
   function priceList() {
-    const prices = games.reduce((uniquePrices: number[], game) => {
-      if (!uniquePrices.includes(game.price)) {
-        uniquePrices.push(game.price);
+    const priceRanges = games.reduce((uniquePriceRanges: string[], game) => {
+      if (!uniquePriceRanges.includes(game.price)) {
+        uniquePriceRanges.push(game.price);
       }
-      return uniquePrices;
+      return uniquePriceRanges;
     }, []);
-    return prices;
+    return priceRanges;
   }
 
   const chosenCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,24 +150,28 @@ export default function Products() {
       ? chosenCategories.filter((category) => category !== categ)
       : [...chosenCategories, categ];
     setChosenCategories(updatedCategories);
+    console.log(updatedCategories);
     filterGames();
   };
 
   const chosenPlats = (event: React.ChangeEvent<HTMLInputElement>) => {
     const platform = event.target.name;
+    console.log(platform);
     const updatedPlatforms = chosenPlatforms.includes(platform)
       ? chosenPlatforms.filter((plat) => plat !== platform)
       : [...chosenPlatforms, platform];
     setChosenPlatforms(updatedPlatforms);
+    console.log(updatedPlatforms);
     filterGames();
   };
 
   const chosenPriceRange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const price = parseInt(event.target.value);
-    setChosenPrice(price);
+    const price = event.target.name;
+    console.log(price);
+    const updatedPrice = chosenPrice === price ? "" : price;
+    setChosenPrice(updatedPrice);
     filterGames();
   };
-
   const uniqueCategories = categoryList();
   const uniquePlatforms = platformList();
   const uniquePrice = priceList();
@@ -197,15 +201,12 @@ export default function Products() {
         chosenCategories.includes(game.category);
       const platformMatch =
         chosenPlatforms.length === 0 ||
-        chosenPlatforms.some((platform) =>
-          game.platforms.includes(platform.toString())
-        );
-      const priceMatch = chosenPrice === null || game.price <= chosenPrice;
+        chosenPlatforms.some((platform) => game.platforms.includes(platform));
+      const priceMatch = chosenPrice === "" || game.price === chosenPrice;
 
       return categoryMatch && platformMatch && priceMatch;
     });
     setFilteredGames(filtered);
-    console.log(filtered);
   };
 
   useEffect(() => {
@@ -220,7 +221,7 @@ export default function Products() {
       id: gameData.id || "",
       title: gameData.title || "",
       image: gameData.image || "",
-      price: gameData.price || 0,
+      price: gameData.price || "0",
       platforms: gameData.platforms || [],
       tags: gameData.tags || [],
       sale: gameData.sale || undefined,
@@ -242,14 +243,21 @@ export default function Products() {
 
   return (
     <div className="bg-firstColor">
-      <div className="lg:px-20 py-4 px-8">
-        <input
-          className="bg-firstColor border-fiveColor border-2 rounded-md shadow-md shadow-fiveColor text-eightColor w-full pl-2"
-          type="text"
-          value={searchValue}
-          onChange={searchGames}
-          onKeyDown={enterGame}
-        />
+      <div className="lg:px-20 py-4 px-8 space-x-4">
+        <div className="flex relative">
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-eightColor">
+            <BsSearch />
+          </div>
+          <input
+            className="bg-firstColor border-fiveColor border-2 rounded-md shadow-md shadow-fiveColor text-eightColor w-full pl-10 pr-2 py-1"
+            type="text"
+            placeholder="Search"
+            value={searchValue}
+            onChange={searchGames}
+            onKeyDown={enterGame}
+            onClick={() => setSearchValue("")}
+          />
+        </div>
       </div>
 
       <div className="lg:px-20 py-4 px-8 text-fiveColor">
@@ -295,19 +303,19 @@ export default function Products() {
           <div className="flex overflow-x-auto py-4">
             <div className="flex space-x-2" ref={categoriesRef}>
               {uniqueCategories.map((category) => (
-                <div
-                  className="flex space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
+                <label
+                  className="flex space-x-2 px-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
                   key={category}
                 >
                   <input
-                    className="rounded-xl"
+                    className="rounded"
                     type="checkbox"
                     name={category}
                     id={category}
                     onChange={chosenCategory}
                   />
                   <p>{category}</p>
-                </div>
+                </label>
               ))}
             </div>
           </div>
@@ -344,7 +352,8 @@ export default function Products() {
                   <input
                     className="rounded-xl"
                     type="checkbox"
-                    id={price.toString()}
+                    name={price}
+                    id={price}
                     onChange={chosenPriceRange}
                   />
                   <p>{price}</p>
@@ -382,7 +391,7 @@ export default function Products() {
                     game.platforms.includes(platform)
                   );
                 const priceMatch =
-                  chosenPrice === null || game.price === chosenPrice;
+                  chosenPrice === "" || game.price === chosenPrice;
 
                 return categoryMatch && platformMatch && priceMatch;
               })
