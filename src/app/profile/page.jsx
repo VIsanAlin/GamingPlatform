@@ -46,5 +46,4 @@ function Profile() {
 
 export default withPageAuthRequired(Profile, {
   onRedirecting: () => <Loading />,
-  onError: (error) => <ErrorMessage>{error.message}</ErrorMessage>,
 });
