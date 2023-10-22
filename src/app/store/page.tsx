@@ -35,12 +35,6 @@ interface Game {
 export default function Store() {
   const [games, setGames] = useState<Game[]>([]);
   const [filteredGames, setFilteredGames] = useState<Game[]>([]);
-  const images: string[] = [
-    "https://i.ibb.co/hmzGvYH/cyberpunk2077.jpg",
-    "https://i.postimg.cc/2jPC6tg7/Blood-Borne.png",
-    "https://i.postimg.cc/brbckz4H/strayv2.jpg",
-    "https://i.postimg.cc/L5gQwNTH/Breath-Of-The-Wild.jpg",
-  ];
 
   const getAllGames = cache(async () => {
     const REALM_APP_ID = "games-oodpu";
@@ -77,6 +71,45 @@ export default function Store() {
     );
     setFilteredGames(filtered);
   }, [games]);
+
+  // Carousel Images + Info + Link
+
+  const imagesToDisplay = filteredGames
+    .filter(
+      (game) =>
+        game.sale && game.sale.price !== null && game.sale.price !== "Free"
+    )
+    .map((game) => game.image);
+
+  const titleToDisplay = filteredGames
+    .filter(
+      (game) =>
+        game.sale && game.sale.price !== null && game.sale.price !== "Free"
+    )
+    .map((game) => game.title);
+
+  const descToDisplay = filteredGames
+    .filter(
+      (game) =>
+        game.sale && game.sale.price !== null && game.sale.price !== "Free"
+    )
+    .map((game) => game.description);
+
+  const priceToDisplay = filteredGames
+    .filter(
+      (game) =>
+        game.sale && game.sale.price !== null && game.sale.price !== "Free"
+    )
+    .map((game) => game.price);
+
+  const idToDisplay = filteredGames
+    .filter(
+      (game) =>
+        game.sale && game.sale.price !== null && game.sale.price !== "Free"
+    )
+    .map((game) => game.id);
+
+  console.log(imagesToDisplay);
 
   function platformsIcon(platforms: string) {
     {
@@ -140,64 +173,70 @@ export default function Store() {
         <hr className="border-[#5A189A]" />
 
         <div className="pt-2">
-          <Carousel images={images} />
+          <Carousel
+            images={imagesToDisplay}
+            title={titleToDisplay}
+            description={descToDisplay}
+            price={priceToDisplay}
+            id={idToDisplay}
+          />
         </div>
 
         <div className="py-2">
           <h2 className="text-2xl pb-4">Categories</h2>
           <hr className="border-[#5A189A] mb-4" />
-          <div className="flex flex-row row-span-6 gap-6 md:py-12 md:px-8 overflow-hidden">
+          <div className="flex flex-row row-span-6 gap-8 md:py-12 md:px-8 overflow-hidden">
             <Link
               href="/games"
               as={`/games`}
               key={1}
-              className="flex flex-col px-6 py-6 border rounded-xl self-center text-center "
+              className="flex flex-col px-6 py-6 border border-y-[#5A189A] border-x-[#E0AAFF] rounded-xl self-center text-center "
             >
               <img
                 src="categ/icons8-sword-64.png"
                 alt="Action Icon"
-                className="lg:pl-8 lg:w-2/3 "
+                className="lg:pl-8 lg:w-2/3 pb-2"
               />
-              <h2>Action Games</h2>{" "}
+              <h2>Action </h2>
             </Link>
             <Link
               href="/games"
               as={`/games`}
               key={2}
-              className="px-6 py-6 border rounded-xl self-center text-center"
+              className="px-6 py-6 border border-x-[#5A189A] border-y-[#E0AAFF] rounded-xl self-center text-center"
             >
               <img
                 src="categ/icons8-adventure-64.png"
                 alt="Action Icon"
-                className="lg:pl-8 lg:w-2/3 "
+                className="lg:pl-8 lg:w-2/3 pb-2"
               />
-              <h2>Adventure Games</h2>{" "}
+              <h2>Adventure </h2>{" "}
             </Link>
             <Link
               href="/games"
               as={`/games`}
               key={3}
-              className="px-6 py-6 border rounded-xl self-center text-center"
+              className="px-6 py-6 border border-y-[#5A189A] border-x-[#E0AAFF] rounded-xl self-center text-center"
             >
               <img
                 src="categ/icons8-mage-staff-64.png"
                 alt="Action Icon"
-                className="lg:pl-8 lg:w-2/3"
+                className="lg:pl-8 lg:w-2/3 pb-2"
               />
-              <h2>Fantasy Games</h2>{" "}
+              <h2>Fantasy </h2>{" "}
             </Link>
             <Link
               href="/games"
               as={`/games`}
               key={4}
-              className="px-6 py-6 border rounded-xl self-center text-center"
+              className="px-6 py-6 border border-x-[#5A189A] border-y-[#E0AAFF] rounded-xl self-center text-center"
             >
               <img
                 src="categ/icons8-assault-rifle-64.png"
                 alt="Action Icon"
-                className="lg:pl-8 lg:w-2/3"
+                className="lg:pl-8 lg:w-2/3 pb-2"
               />
-              <h2>Shooter Games</h2>{" "}
+              <h2>Shooter </h2>{" "}
             </Link>
           </div>
         </div>
@@ -386,7 +425,7 @@ export default function Store() {
                       <div className="flex  font-medium md:text-lg md:mt-2 md:mb-1">
                         <p className="pr-2">{title}</p>
                         <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md px-2">
-                          Popular
+                          RPG
                         </span>
                       </div>
 
@@ -455,7 +494,7 @@ export default function Store() {
                       <div className="flex font-medium md:text-lg md:mt-2 md:mb-1">
                         <p className="pr-2">{title}</p>
                         <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md px-2">
-                          Popular
+                          Shooter
                         </span>
                       </div>
 

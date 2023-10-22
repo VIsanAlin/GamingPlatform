@@ -4,7 +4,7 @@ import * as Realm from "realm-web";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import featureIcon from "../../../../public/star.png";
-import CarouselID from "@/components/Carouselid";
+import CarouselID from "../../../components/Carouselid";
 import {
   BsSteam,
   BsPlaystation,

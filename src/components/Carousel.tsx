@@ -9,9 +9,19 @@ import {
 
 interface CarouselProps {
   images: string[];
+  title: string[];
+  description: string[];
+  price: number[];
+  id: string[];
 }
 
-const Carousel: React.FC<CarouselProps> = ({ images }) => {
+const Carousel: React.FC<CarouselProps> = ({
+  images,
+  title,
+  description,
+  price,
+  id,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToNextSlide = () => {
@@ -26,8 +36,11 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
 
   return (
     <div className="relative mt-4 z-0 justify-between px-12">
-      <Link href="/games" className="flex relative  mt-2 z-0 ">
-        <div className="relative block z-0 w-full lg:w-[70%]">
+      <Link
+        href={`/games/item=${id[currentIndex]}`}
+        className="flex relative  mt-2 z-0 "
+      >
+        <div className="relative block z-0 lg:w-[70%]">
           <img
             src={images[currentIndex]}
             alt={`Slide ${currentIndex}`}
@@ -35,18 +48,15 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           />
         </div>
         <div
-          className="hidden lg:flex lg:flex-col justify-between pl-4 pr-4 ml-4 bg-forthColor rounded-r-3xl"
+          className=" lg:flex lg:flex-col justify-between pl-4 pr-4 ml-4 bg-forthColor rounded-r-3xl"
           style={{ maxWidth: "30%" }}
         >
           <div>
-            <h2 className="text-xl font-bold py-4">Cyberpunk 2077</h2>
-            <p className="text-sm mb-4">
-              Here is the description for the product you are seeing the image
-              on your left and will make you more interested to buy this game
-            </p>
+            <h2 className="text-xl font-bold py-4">{title[currentIndex]}</h2>
+            <p className="hidden text-sm mb-4">{description[currentIndex]}</p>
           </div>
           <div>
-            <p className="font-light mb-2">$39.99</p>
+            <p className="font-light mb-2">{price[currentIndex]}</p>
             <div className="flex space-x-4 pb-6">
               <button>Available right now</button>
               <BsSteam /> <BsPlaystation /> <BsXbox />
@@ -55,7 +65,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           </div>
         </div>
       </Link>
-      <div className="flex absolute top-[45%] left-12 right-12 translate-y-1/2 justify-between">
+      <div className="flex absolute top-[30%] lg:top-[40%] left-12 right-12 translate-y-1/2 justify-between">
         <button
           className=" bg-transparent border-none mr-auto text-3xl"
           onClick={goToPrevSlide}

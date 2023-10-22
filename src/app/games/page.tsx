@@ -84,7 +84,7 @@ export default function Products() {
   const [isPriceVisible, setIsPriceVisible] = useState(false);
   const [chosenCategories, setChosenCategories] = useState<string[]>([]);
   const [chosenPlatforms, setChosenPlatforms] = useState<string[]>([]);
-  const [chosenPrice, setChosenPrice] = useState<string>();
+  const [chosenPrice, setChosenPrice] = useState<string | null>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
   const platformsRef = useRef<HTMLDivElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
@@ -94,14 +94,14 @@ export default function Products() {
     setIsPlatformsVisible(false);
     setIsPriceVisible(false);
     setChosenPlatforms([]);
-    setChosenPrice("");
+    setChosenPrice(null);
   };
   const togglePlatforms = () => {
     setIsPlatformsVisible((prevVisibility) => !prevVisibility);
     setIsPriceVisible(false);
     setIsCategoriesVisible(false);
     setChosenCategories([]);
-    setChosenPrice("");
+    setChosenPrice(null);
   };
   const togglePrice = () => {
     setIsPriceVisible((prevVisibility) => !prevVisibility);
@@ -202,7 +202,7 @@ export default function Products() {
       const platformMatch =
         chosenPlatforms.length === 0 ||
         chosenPlatforms.some((platform) => game.platforms.includes(platform));
-      const priceMatch = chosenPrice === "" || game.price === chosenPrice;
+      const priceMatch = chosenPrice === null || game.price === chosenPrice;
 
       return categoryMatch && platformMatch && priceMatch;
     });
@@ -391,7 +391,7 @@ export default function Products() {
                     game.platforms.includes(platform)
                   );
                 const priceMatch =
-                  chosenPrice === "" || game.price === chosenPrice;
+                  chosenPrice === null || game.price === chosenPrice;
 
                 return categoryMatch && platformMatch && priceMatch;
               })
@@ -464,7 +464,19 @@ export default function Products() {
                 </Link>
               ))
           ) : (
-            <p>No games found.</p>
+            <div>
+              <button
+                type="button"
+                className="flex bg-firstColor mx-auto my-20"
+                disabled
+              >
+                <div
+                  className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-forthColor motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                  role="status"
+                ></div>
+                <span className="pl-4 text-eightColor">Loading games...</span>
+              </button>
+            </div>
           )}
         </div>
         <hr />

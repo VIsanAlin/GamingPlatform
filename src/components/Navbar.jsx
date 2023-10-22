@@ -5,7 +5,9 @@ import { Menu, Transition } from "@headlessui/react";
 import menublack from "../../public/nav/menu_black_24dp.svg";
 
 import Cart from "./Cart";
+import Profil from "./Profil";
 
+//Adding the Logo into the Navbar
 function Logo() {
   const logoImage = "/game-controller.png";
   return (
@@ -46,6 +48,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex py-2">
+          <Profil />
           <Cart />
           <div className="block md:hidden">
             <Menu>
