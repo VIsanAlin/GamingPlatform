@@ -8,10 +8,6 @@ import {
   NavbarToggler,
   Nav,
   NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
 } from "reactstrap";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
@@ -68,11 +64,7 @@ const NavBar = () => {
                   </span>
                 </NavItem>
                 <NavItem>
-                  <PageLink
-                    href="/profile"
-                    icon="user"
-                    testId="navbar-profile-mobile"
-                  >
+                  <PageLink href="/profile" testId="navbar-profile-mobile">
                     Profile
                   </PageLink>
                 </NavItem>
@@ -80,7 +72,6 @@ const NavBar = () => {
                   <AnchorLink
                     href="/api/auth/logout"
                     className="btn btn-link p-0"
-                    icon="power-off"
                     testId="navbar-logout-mobile"
                   >
                     Log out
