@@ -3,6 +3,7 @@ import React, { useState, useEffect, cache } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
 import Carousel from "../../components/Carousel";
+import CartIMG from "../../../public/nav/shopping_cart_black_24dp.svg";
 import Image from "next/image";
 import ActionIcon from "../../../public/categ/icons8-sword-64.png";
 import {
@@ -16,7 +17,7 @@ interface Game {
   id: string;
   title: string;
   image: string;
-  price: number;
+  price: string;
   tags: string[];
   platforms: string[];
   sale?: {
@@ -111,6 +112,12 @@ export default function Store() {
 
   console.log(imagesToDisplay);
 
+  // Category click
+
+  const handleCategoryClick = (category: string) => {
+    localStorage.setItem("selectedCategory", category);
+  };
+
   function platformsIcon(platforms: string) {
     {
       switch (platforms) {
@@ -143,7 +150,7 @@ export default function Store() {
       id: gameData.id || "",
       title: gameData.title || "",
       image: gameData.image || "",
-      price: gameData.price || 0,
+      price: gameData.price || "",
       platforms: gameData.platforms || [],
       tags: gameData.tags || [],
       sale: gameData.sale || undefined,
@@ -183,14 +190,13 @@ export default function Store() {
         </div>
 
         <div className="py-2">
-          <h2 className="text-2xl pb-4">Categories</h2>
-          <hr className="border-[#5A189A] mb-4" />
           <div className="flex flex-row row-span-6 gap-8 md:py-12 md:px-8 overflow-hidden">
             <Link
               href="/games"
               as={`/games`}
               key={1}
               className="flex flex-col px-6 py-6 border border-y-[#5A189A] border-x-[#E0AAFF] rounded-xl self-center text-center "
+              onClick={() => handleCategoryClick("Action")}
             >
               <img
                 src="categ/icons8-sword-64.png"
@@ -204,6 +210,7 @@ export default function Store() {
               as={`/games`}
               key={2}
               className="px-6 py-6 border border-x-[#5A189A] border-y-[#E0AAFF] rounded-xl self-center text-center"
+              onClick={() => handleCategoryClick("Adventure")}
             >
               <img
                 src="categ/icons8-adventure-64.png"
@@ -215,21 +222,9 @@ export default function Store() {
             <Link
               href="/games"
               as={`/games`}
-              key={3}
-              className="px-6 py-6 border border-y-[#5A189A] border-x-[#E0AAFF] rounded-xl self-center text-center"
-            >
-              <img
-                src="categ/icons8-mage-staff-64.png"
-                alt="Action Icon"
-                className="lg:pl-8 lg:w-2/3 pb-2"
-              />
-              <h2>Fantasy </h2>{" "}
-            </Link>
-            <Link
-              href="/games"
-              as={`/games`}
               key={4}
               className="px-6 py-6 border border-x-[#5A189A] border-y-[#E0AAFF] rounded-xl self-center text-center"
+              onClick={() => handleCategoryClick("Shooter")}
             >
               <img
                 src="categ/icons8-assault-rifle-64.png"
@@ -243,7 +238,7 @@ export default function Store() {
 
         {/* Separate divs for Fantasy, RPG, and Shooter */}
         <div className="py-2 ">
-          <h2 className="text-2xl py-4">Popular Games</h2>
+          <h2 className="text-2xl py-4 text-gradient">Popular Games</h2>
           <hr className="border-[#5A189A] " />
           <div className="flex flex-col md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8 ">
             {filteredGames
@@ -251,10 +246,10 @@ export default function Store() {
               .slice(0, visibleGames)
               .map(({ title, image, price, tags, platforms, id }) => (
                 <Link
-                  href="/games/item=[id]"
+                  href={`/games/item=${id}`}
                   as={`/games/item=${id}`}
                   key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
+                  className="flex px-2 py-2 md:px-0 md:py-0 shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                   onClick={(event) => {
                     if (
                       (event.target as Element).tagName.toLowerCase() ===
@@ -268,29 +263,49 @@ export default function Store() {
                     }
                   }}
                 >
-                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
+                  <div className="w-2/3 md:w-auto ">
                     <img
                       src={image}
-                      alt={image}
-                      className="object-cover md:object-fill md:h-full md:w-full "
+                      alt={title}
+                      className="object-fit h-full w-full "
                     />
                   </div>
-                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2 w-full">
-                    <div>
-                      <div className="flex font-medium md:text-lg md:mt-2 md:mb-1">
-                        <p className="pr-2">{title}</p>
-                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md px-2">
+                  <div className="md:grid px-2 py-1 w-full space-y-2 md:h-30 md:py-2 ">
+                    <div className="space-y-2">
+                      <div className="block md:flex text-sm px-1 md:text-lg md:mt-2 md:mb-1 font-medium ">
+                        <p
+                          className="md:pr-2"
+                          style={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {title}
+                        </p>
+                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md md:py-0 md:px-2">
                           Popular
                         </span>
                       </div>
-
-                      <p className="font-extralight text-sm md:mb-2">
+                      <div className="text-xs font-extralight">
                         {tags
                           .slice(0, 2)
-                          .map((tag) => `${tag} `)
-                          .join(" • ")}
-                      </p>
-                      <div className="flex items-center">
+                          .map((tag, index) => (
+                            <span
+                              className="bg-secondColor bg-opacity-25  border-forthColor rounded-md p-1"
+                              key={index}
+                            >
+                              {tag}
+                            </span>
+                          ))
+                          .map((tagElement, index, array) => (
+                            <React.Fragment key={index}>
+                              {tagElement}
+                              {index < array.length - 1 ? " • " : null}
+                            </React.Fragment>
+                          ))}
+                      </div>
+                      <div className="flex ">
                         {platforms.map((platform) => (
                           <div className="px-1" key={platform}>
                             {platformsIcon(platform)}
@@ -298,19 +313,20 @@ export default function Store() {
                         ))}
                       </div>
                     </div>
-
-                    <div className="flex justify-between p-2">
-                      <p className="font-medium text-lg text-eightColor pl-2 py-2 w-1/3">
-                        €{price}
-                      </p>
-                      <button
-                        onClick={() =>
-                          handleAddToCart({ id, title, image, price })
-                        }
-                        className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
-                      >
-                        Buy
-                      </button>
+                    <div>
+                      <div className="flex items-center justify-between py-2 ">
+                        <p className="font-medium text-lg  px-2 w-auto">
+                          {price === "Free" ? price : `€${price}`}
+                        </p>
+                        <button
+                          onClick={() =>
+                            handleAddToCart({ id, title, image, price })
+                          }
+                          className="flex justify-center bg-forthColor md:bg-sixColor rounded-2xl py-2 w-1/4"
+                        >
+                          <Image src={CartIMG} alt="cart" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -319,7 +335,7 @@ export default function Store() {
         </div>
 
         <div className="py-2">
-          <h2 className="text-2xl py-4">Sales</h2>
+          <h2 className="text-2xl py-4 sale-gradient">Sales</h2>
           <hr className="border-[#5A189A]" />
           <div className="flex flex-col md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
             {filteredGames
@@ -331,33 +347,66 @@ export default function Store() {
               )
               .map(({ title, image, sale, platforms, tags, id }) => (
                 <Link
-                  href="/games/item=[id]"
+                  href={`/games/item=${id}`}
                   as={`/games/item=${id}`}
                   key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
+                  className="flex px-2 py-2 md:px-0 md:py-0 shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
+                  onClick={(event) => {
+                    if (
+                      (event.target as Element).tagName.toLowerCase() ===
+                      "button"
+                    ) {
+                      console.log("A button was clicked");
+                      event.preventDefault();
+                    } else {
+                      // Manually navigate to the game page
+                      console.log("not a button pushed");
+                    }
+                  }}
                 >
-                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
+                  <div className="w-2/3 md:w-auto ">
                     <img
                       src={image}
                       alt={title}
-                      className="object-cover md:object-fill md:h-full md:w-full"
+                      className="object-fit h-full w-full "
                     />
                   </div>
-                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2 w-full">
-                    <div>
-                      <h3 className="flex font-medium md:text-lg md:mt-2 md:mb-1">
-                        <p className="pr-2">{title}</p>
-                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md px-2">
+                  <div className="md:grid px-2 py-1 w-full space-y-2 md:h-30 md:py-2 ">
+                    <div className="space-y-2">
+                      <div className="block md:flex text-sm px-1 md:text-lg md:mt-2 md:mb-1 font-medium ">
+                        <p
+                          className="md:pr-2"
+                          style={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {title}
+                        </p>
+                        <span className="bg-secondColor bg-opacity-25 text-green-700 border-forthColor rounded-md md:py-0 md:px-2">
                           Sale
                         </span>
-                      </h3>
-                      <p className="font-extralight text-sm mb-2">
+                      </div>
+                      <div className="text-xs font-extralight">
                         {tags
                           .slice(0, 2)
-                          .map((tag) => `${tag} `)
-                          .join(" • ")}
-                      </p>
-                      <div className="flex items-center">
+                          .map((tag, index) => (
+                            <span
+                              className="bg-secondColor bg-opacity-25  border-forthColor rounded-md p-1"
+                              key={index}
+                            >
+                              {tag}
+                            </span>
+                          ))
+                          .map((tagElement, index, array) => (
+                            <React.Fragment key={index}>
+                              {tagElement}
+                              {index < array.length - 1 ? " • " : null}
+                            </React.Fragment>
+                          ))}
+                      </div>
+                      <div className="flex ">
                         {platforms.map((platform) => (
                           <div className="px-1" key={platform}>
                             {platformsIcon(platform)}
@@ -366,10 +415,12 @@ export default function Store() {
                       </div>
                     </div>
 
-                    <div className="flex justify-between p-2">
+                    <div className="flex items-center justify-between py-2">
                       {sale && sale.price !== undefined ? (
                         <p className="font-semibold text-lg text-green-700 pl-2 p-2 w-1/3">
-                          €{sale.price}
+                          {sale.price === "Free"
+                            ? sale.price
+                            : `€${sale.price}`}
                         </p>
                       ) : null}
 
@@ -377,9 +428,9 @@ export default function Store() {
                         onClick={() =>
                           handleAddToCart({ id, title, image, sale })
                         }
-                        className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
+                        className="flex justify-center bg-forthColor md:bg-sixColor rounded-2xl py-2 w-1/4"
                       >
-                        Buy
+                        <Image src={CartIMG} alt="cart" />
                       </button>
                     </div>
                   </div>
@@ -389,17 +440,17 @@ export default function Store() {
         </div>
 
         <div className="py-2">
-          <h2 className="text-2xl pb-4">RPG Games:</h2>
+          <h2 className="text-2xl pb-4 text-gradient">RPG Games</h2>
           <hr className="border-[#5A189A]" />
           <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
             {filteredGames
               .filter((game) => game.tags.includes("RPG"))
               .map(({ title, image, price, platforms, tags, id }) => (
                 <Link
-                  href="/games/item=[id]"
+                  href={`/games/item=${id}`}
                   as={`/games/item=${id}`}
                   key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
+                  className="flex px-2 py-2 md:px-0 md:py-0 shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                   onClick={(event) => {
                     if (
                       (event.target as Element).tagName.toLowerCase() ===
@@ -413,23 +464,49 @@ export default function Store() {
                     }
                   }}
                 >
-                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
+                  <div className="w-2/3 md:w-auto ">
                     <img
                       src={image}
-                      alt={image}
-                      className="object-cover md:object-fill md:h-full md:w-full "
+                      alt={title}
+                      className="object-fit h-full w-full "
                     />
                   </div>
-                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2 w-full">
-                    <div>
-                      <div className="flex  font-medium md:text-lg md:mt-2 md:mb-1">
-                        <p className="pr-2">{title}</p>
-                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md px-2">
+                  <div className="md:grid px-2 py-1 w-full space-y-2 md:h-30 md:py-2 ">
+                    <div className="space-y-2">
+                      <div className="block md:flex text-sm px-1 md:text-lg md:mt-2 md:mb-1 font-medium ">
+                        <p
+                          className="md:pr-2"
+                          style={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {title}
+                        </p>
+                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md md:py-0 md:px-2">
                           RPG
                         </span>
                       </div>
-
-                      <div className="flex items-center pt-2">
+                      <div className="text-xs font-extralight">
+                        {tags
+                          .slice(0, 2)
+                          .map((tag, index) => (
+                            <span
+                              className="bg-secondColor bg-opacity-25  border-forthColor rounded-md p-1"
+                              key={index}
+                            >
+                              {tag}
+                            </span>
+                          ))
+                          .map((tagElement, index, array) => (
+                            <React.Fragment key={index}>
+                              {tagElement}
+                              {index < array.length - 1 ? " • " : null}
+                            </React.Fragment>
+                          ))}
+                      </div>
+                      <div className="flex ">
                         {platforms.map((platform) => (
                           <div className="px-1" key={platform}>
                             {platformsIcon(platform)}
@@ -437,19 +514,20 @@ export default function Store() {
                         ))}
                       </div>
                     </div>
-
-                    <div className="flex justify-between p-2">
-                      <p className="font-medium text-lg text-eightColor pl-2 py-2 w-1/3">
-                        €{price}
-                      </p>
-                      <button
-                        onClick={() =>
-                          handleAddToCart({ id, title, image, price })
-                        }
-                        className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
-                      >
-                        Buy
-                      </button>
+                    <div>
+                      <div className="flex items-center justify-between py-2 ">
+                        <p className="font-medium text-lg  px-2 w-auto">
+                          {price === "Free" ? price : `€${price}`}
+                        </p>
+                        <button
+                          onClick={() =>
+                            handleAddToCart({ id, title, image, price })
+                          }
+                          className="flex justify-center bg-forthColor md:bg-sixColor rounded-2xl py-2 w-1/4"
+                        >
+                          <Image src={CartIMG} alt="cart" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -458,17 +536,17 @@ export default function Store() {
         </div>
 
         <div className="py-2">
-          <h2 className="text-2xl py-4">Shooter Games:</h2>
+          <h2 className="text-2xl py-4 text-gradient">Shooter Games</h2>
           <hr className="border-[#5A189A]" />
           <div className="flex flex-col md:grid md:grid-cols-2  2xl:grid-cols-4 md:gap-6 md:py-12 md:px-8">
             {filteredGames
               .filter((game) => game.tags.includes("Shooter"))
               .map(({ title, image, price, platforms, tags, id }) => (
                 <Link
-                  href="/games/item=[id]"
+                  href={`/games/item=${id}`}
                   as={`/games/item=${id}`}
                   key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
+                  className="flex px-2 py-2 md:px-0 md:py-0 shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                   onClick={(event) => {
                     if (
                       (event.target as Element).tagName.toLowerCase() ===
@@ -482,23 +560,49 @@ export default function Store() {
                     }
                   }}
                 >
-                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
+                  <div className="w-2/3 md:w-auto ">
                     <img
                       src={image}
-                      alt={image}
-                      className="object-cover md:object-fill md:h-full md:w-full "
+                      alt={title}
+                      className="object-fit h-full w-full "
                     />
                   </div>
-                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2 w-full">
-                    <div>
-                      <div className="flex font-medium md:text-lg md:mt-2 md:mb-1">
-                        <p className="pr-2">{title}</p>
-                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md px-2">
+                  <div className="md:grid px-2 py-1 w-full space-y-2 md:h-30 md:py-2 ">
+                    <div className="space-y-2">
+                      <div className="block md:flex text-sm px-1 md:text-lg md:mt-2 md:mb-1 font-medium ">
+                        <p
+                          className="md:pr-2"
+                          style={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {title}
+                        </p>
+                        <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md md:py-0 md:px-2">
                           Shooter
                         </span>
                       </div>
-
-                      <div className="flex items-center pt-2">
+                      <div className="text-xs font-extralight">
+                        {tags
+                          .slice(0, 2)
+                          .map((tag, index) => (
+                            <span
+                              className="bg-secondColor bg-opacity-25  border-forthColor rounded-md p-1"
+                              key={index}
+                            >
+                              {tag}
+                            </span>
+                          ))
+                          .map((tagElement, index, array) => (
+                            <React.Fragment key={index}>
+                              {tagElement}
+                              {index < array.length - 1 ? " • " : null}
+                            </React.Fragment>
+                          ))}
+                      </div>
+                      <div className="flex ">
                         {platforms.map((platform) => (
                           <div className="px-1" key={platform}>
                             {platformsIcon(platform)}
@@ -506,19 +610,20 @@ export default function Store() {
                         ))}
                       </div>
                     </div>
-
-                    <div className="flex justify-between p-2">
-                      <p className="font-medium text-lg text-eightColor pl-2 py-2 w-1/3">
-                        €{price}
-                      </p>
-                      <button
-                        onClick={() =>
-                          handleAddToCart({ id, title, image, price })
-                        }
-                        className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
-                      >
-                        Buy
-                      </button>
+                    <div>
+                      <div className="flex items-center justify-between py-2 ">
+                        <p className="font-medium text-lg  px-2 w-auto">
+                          {price === "Free" ? price : `€${price}`}
+                        </p>
+                        <button
+                          onClick={() =>
+                            handleAddToCart({ id, title, image, price })
+                          }
+                          className="flex justify-center bg-forthColor md:bg-sixColor rounded-2xl py-2 w-1/4"
+                        >
+                          <Image src={CartIMG} alt="cart" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </Link>

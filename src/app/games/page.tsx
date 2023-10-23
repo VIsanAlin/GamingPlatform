@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as Realm from "realm-web";
 import Link from "next/link";
+import Image from "next/image";
+import CartIMG from "../../../public/nav/shopping_cart_black_24dp.svg";
 import {
   BsSearch,
   BsSteam,
@@ -111,6 +113,15 @@ export default function Products() {
     setChosenPlatforms([]);
   };
 
+  // Redirect Store -> Category
+  let selectedCategory: string | null;
+  useEffect(() => {
+    selectedCategory = localStorage.getItem("selectedCategory");
+    if (selectedCategory) {
+      setChosenCategories([selectedCategory]);
+    }
+  }, []);
+
   function categoryList() {
     const categories = games.reduce((uniqueCategories: string[], game) => {
       if (!uniqueCategories.includes(game.category)) {
@@ -149,6 +160,11 @@ export default function Products() {
     const updatedCategories = chosenCategories.includes(categ)
       ? chosenCategories.filter((category) => category !== categ)
       : [...chosenCategories, categ];
+    if (chosenCategories.includes(categ)) {
+      localStorage.removeItem("selectedCategory");
+    } else {
+      localStorage.setItem("selectedCategory", categ);
+    }
     setChosenCategories(updatedCategories);
     console.log(updatedCategories);
     filterGames();
@@ -308,13 +324,16 @@ export default function Products() {
                   key={category}
                 >
                   <input
-                    className="rounded"
                     type="checkbox"
                     name={category}
                     id={category}
+                    checked={
+                      chosenCategories.includes(category) ||
+                      selectedCategory === category
+                    }
                     onChange={chosenCategory}
                   />
-                  <p>{category}</p>
+                  <label htmlFor={category}>{category}</label>
                 </label>
               ))}
             </div>
@@ -329,13 +348,12 @@ export default function Products() {
                   key={platform}
                 >
                   <input
-                    className="rounded-xl"
                     type="checkbox"
                     name={platform}
                     id={platform}
                     onChange={chosenPlats}
                   />
-                  <p>{platform}</p>
+                  <label htmlFor={platform}>{platform}</label>
                 </div>
               ))}
             </div>
@@ -356,7 +374,7 @@ export default function Products() {
                     id={price}
                     onChange={chosenPriceRange}
                   />
-                  <p>{price}</p>
+                  <label htmlFor={price}>{price}</label>
                 </div>
               ))}
             </div>
@@ -365,11 +383,10 @@ export default function Products() {
       </div>
       <div className="lg:px-20 px-8 py-4">
         <div className="text-4xl pb-8">
-          <h2 className="text-2xl md:text-4xl text-[#e6bbff]">
-            Unlock Your Gaming Adventure with Unbeatable Prices!
-          </h2>
+          <p className="text-2xl md:text-4xl text-[#e6bbff]">
+            <span>Unlock Your Gaming Adventure with Unbeatable Prices!</span>
+          </p>
         </div>
-        <hr className="border-[#5A189A]" />
         <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:py-12 md:px-8">
           {games && games.length > 0 ? (
             games
@@ -401,7 +418,7 @@ export default function Products() {
                   href={`/games/item=${id}`}
                   as={`/games/item=${id}`}
                   key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-lg md:shadow-sm overflow-hidden productItem"
+                  className="flex px-2 py-2 md:px-0 md:py-0 shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                   onClick={(event) => {
                     if (
                       (event.target as Element).tagName.toLowerCase() ===
@@ -415,27 +432,35 @@ export default function Products() {
                     }
                   }}
                 >
-                  <div className="w-1/2 lg:w-auto ">
+                  <div className="w-2/3 md:w-auto ">
                     <img
                       src={image}
                       alt={title}
-                      className="object-fit h-full w-full rounded-lg "
+                      className="object-fit h-full w-full "
                     />
                   </div>
-                  <div className="md:grid px-2 w-full space-y-1 py-1">
-                    <div className="">
-                      <div className="flex items-center text-sm px-1 md:text-base font-medium text-eightColor">
-                        {title}
+                  <div className="md:grid px-2 py-1 w-full space-y-2 md:h-30 md:py-2 ">
+                    <div className="space-y-2">
+                      <div className="flex text-sm px-1 md:text-lg md:mt-2 md:mb-1 font-medium text-eightColor">
+                        <p className="md:pr-2">{title}</p>
                       </div>
                       <div className="text-xs font-extralight">
-                        {tags.slice(0, 2).map((tag) => (
-                          <span
-                            className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md p-1"
-                            key={tag}
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                        {tags
+                          .slice(0, 2)
+                          .map((tag, index) => (
+                            <span
+                              className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md p-1"
+                              key={index}
+                            >
+                              {tag}
+                            </span>
+                          ))
+                          .map((tagElement, index, array) => (
+                            <React.Fragment key={index}>
+                              {tagElement}
+                              {index < array.length - 1 ? " • " : null}
+                            </React.Fragment>
+                          ))}
                       </div>
                       <div className="flex text-eightColor">
                         {platforms.map((platform) => (
@@ -446,17 +471,17 @@ export default function Products() {
                       </div>
                     </div>
                     <div>
-                      <div className="flex ">
+                      <div className="flex items-center justify-between py-2 ">
                         <p className="font-medium text-lg text-eightColor px-2 w-auto">
-                          €{price}
+                          {price === "Free" ? price : `€${price}`}
                         </p>
                         <button
                           onClick={() =>
                             handleAddToCart({ id, title, image, price })
                           }
-                          className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl  w-2/3"
+                          className="flex justify-center bg-forthColor md:bg-sixColor rounded-2xl py-2 w-1/4"
                         >
-                          Buy
+                          <Image src={CartIMG} alt="cart" />
                         </button>
                       </div>
                     </div>

@@ -11,7 +11,7 @@ interface CarouselProps {
   images: string[];
   title: string[];
   description: string[];
-  price: number[];
+  price: string[];
   id: string[];
 }
 
@@ -35,7 +35,7 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   return (
-    <div className="relative mt-4 z-0 justify-between px-12">
+    <div className="relative mt-4 pb-4 z-0 justify-between px-12">
       <Link
         href={`/games/item=${id[currentIndex]}`}
         className="flex relative  mt-2 z-0 "
@@ -48,12 +48,14 @@ const Carousel: React.FC<CarouselProps> = ({
           />
         </div>
         <div
-          className=" lg:flex lg:flex-col justify-between pl-4 pr-4 ml-4 bg-forthColor rounded-r-3xl"
+          className="hidden lg:flex lg:flex-col justify-between pl-4 pr-4 ml-4 bg-forthColor rounded-r-3xl"
           style={{ maxWidth: "30%" }}
         >
-          <div>
+          <div className="">
             <h2 className="text-xl font-bold py-4">{title[currentIndex]}</h2>
-            <p className="hidden text-sm mb-4">{description[currentIndex]}</p>
+            <p className="hidden lg:block text-sm mb-4">
+              {description[currentIndex]}
+            </p>
           </div>
           <div>
             <p className="font-light mb-2">{price[currentIndex]}</p>

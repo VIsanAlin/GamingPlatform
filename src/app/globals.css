@@ -294,3 +294,47 @@ body {
 .footerCopyright {
   @apply bg-neutral-200 p-6 text-center dark:bg-firstColor;
 }
+
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Create a custom checkbox */
+input[type="checkbox"] + label::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-color: #fff; /* Your background color for unselected */
+  border: 1px solid #ccc; /* Your border color for unselected */
+  margin-right: 6px;
+  margin-bottom: 4px;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 0.45rem;
+}
+
+input[type="checkbox"] + label {
+  display: inline-block;
+  vertical-align: middle; /* Ensure vertical alignment with the checkbox */
+}
+
+/* Style the custom checkbox when checked */
+input[type="checkbox"]:checked + label::before {
+  background-color: #5a189a; /* Your background color for selected */
+  border: 1px solid #e0aaff; /* Your border color for selected */
+}
+
+.text-gradient {
+  background-image: linear-gradient(to right, #5a189a, #e0aaff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sale-gradient {
+  background-image: linear-gradient(to right, #15803d, #e0aaff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
