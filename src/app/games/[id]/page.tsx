@@ -170,33 +170,34 @@ export default function GameDetails() {
                   </div>
 
                   <div className="flex flex-col justify-between p-4 pb-0 space-y-2 ">
-                    <h3 className=" text-fiveColor text-2xl font-medium  ">
-                      {title}
-                    </h3>
-                    <h2 className="text-fiveColor lg:text-xl text-lg font-medium">
-                      Publisher :{" "}
-                      <span className="text-eightColor">{publisher}</span>
-                    </h2>
-                    <p className="text-fiveColor lg:text-xl text-lg">
-                      Release date :{" "}
-                      <span className="text-eightColor">{release}</span>
-                    </p>
-                    <p className="flex items-center lg:text-xl text-lg text-fiveColor mb-2 ">
-                      Platforms{" "}
-                      {platforms.map((platform) => (
-                        <span className="px-2" key={platform}>
-                          {platformsIcon(platform)}
-                        </span>
-                      ))}
-                    </p>
-                    <p className="hidden md:block font-extralight text-eightColor lg:text-xl text-sm mb-2">
-                      Tags :{" "}
-                      {tags
-                        .slice(0, 3)
-                        .map((tag) => `${tag} `)
-                        .join(" • ")}
-                    </p>
-
+                    <div className="space-y-2">
+                      <h3 className=" text-fiveColor text-2xl font-medium  ">
+                        {title}
+                      </h3>
+                      <h2 className="text-fiveColor lg:text-xl text-lg font-medium">
+                        Publisher :{" "}
+                        <span className="text-eightColor">{publisher}</span>
+                      </h2>
+                      <p className="text-fiveColor lg:text-xl text-lg">
+                        Release date :{" "}
+                        <span className="text-eightColor">{release}</span>
+                      </p>
+                      <p className="flex items-center lg:text-xl text-lg text-fiveColor mb-2 ">
+                        Platforms{" "}
+                        {platforms.map((platform) => (
+                          <span className="px-2" key={platform}>
+                            {platformsIcon(platform)}
+                          </span>
+                        ))}
+                      </p>
+                      <p className="hidden md:block font-extralight text-eightColor lg:text-xl text-sm mb-2">
+                        Tags :{" "}
+                        {tags
+                          .slice(0, 3)
+                          .map((tag) => `${tag} `)
+                          .join(" • ")}
+                      </p>
+                    </div>
                     <div className="flex justify-between py-4">
                       <p className="font-medium text-lg text-forthColor text-right pr-4 py-2 w-1/3">
                         €{price}

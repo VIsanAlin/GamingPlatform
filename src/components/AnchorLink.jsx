@@ -12,7 +12,14 @@ const AnchorLink = ({ children, href, className, icon, tabIndex, testId }) => {
         tabIndex={tabIndex}
         testId={testId}
       >
-        {children}
+        {icon ? (
+          <img
+            src="../../public/nav/profile-user-svgrepo-com.svg"
+            alt="login"
+          />
+        ) : (
+          children
+        )}
       </NavBarItem>
     </a>
   );

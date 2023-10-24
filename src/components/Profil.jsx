@@ -10,30 +10,38 @@ import {
   NavItem,
 } from "reactstrap";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Profile from "../../public/nav/profile-user-svgrepo-com.svg";
+import Image from "next/image";
 
 import PageLink from "./PageLink";
 import AnchorLink from "./AnchorLink";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const { user, isLoading } = useUser();
   const toggle = () => setIsOpen(!isOpen);
+
+  const toggleProfile = () => {
+    setShowProfile(!showProfile);
+  };
 
   return (
     <div className="nav-container" data-testid="navbar">
       <Navbar color="light" light expand="md">
         <Container>
-          <NavbarToggler onClick={toggle} data-testid="navbar-toggle" />
+          {/* 
+          <NavbarToggler onClick={toggle} data-testid="navbar-toggle" />*/}
           <Collapse isOpen={isOpen} navbar>
             {!isLoading && !user && (
-              <Nav className="d-md-none" navbar>
+              <Nav className="d-md-none mt-1 pt-1" navbar>
                 <AnchorLink
                   href="/api/auth/login"
-                  className="btn btn-primary btn-block"
+                  className="btn btn-primary btn-block "
                   tabIndex={0}
                   testId="navbar-login-mobile"
                 >
-                  Log in
+                  <Image src={Profile} alt="login" className="w-6 h-6" />
                 </AnchorLink>
               </Nav>
             )}
@@ -49,34 +57,33 @@ const NavBar = () => {
                     <img
                       src={user.picture}
                       alt="Profile"
-                      className="nav-user-profile d-inline-block rounded-circle mr-3"
-                      width="50"
-                      height="50"
+                      className="nav-user-profile d-inline-block rounded-xl ml-auto"
+                      width="40"
+                      height="40"
                       decode="async"
                       data-testid="navbar-picture-mobile"
+                      onClick={toggleProfile}
                     />
-                    <h6
-                      className="d-inline-block"
-                      data-testid="navbar-user-mobile"
-                    >
-                      {user.name}
-                    </h6>
                   </span>
                 </NavItem>
-                <NavItem>
-                  <PageLink href="/profile" testId="navbar-profile-mobile">
-                    Profile
-                  </PageLink>
-                </NavItem>
-                <NavItem id="qsLogoutBtn">
-                  <AnchorLink
-                    href="/api/auth/logout"
-                    className="btn btn-link p-0"
-                    testId="navbar-logout-mobile"
-                  >
-                    Log out
-                  </AnchorLink>
-                </NavItem>
+                {showProfile && (
+                  <div>
+                    <NavItem>
+                      <PageLink href="/profile" testId="navbar-profile-mobile">
+                        Profile
+                      </PageLink>
+                    </NavItem>
+                    <NavItem id="qsLogoutBtn">
+                      <AnchorLink
+                        href="/api/auth/logout"
+                        className="btn btn-link p-0"
+                        testId="navbar-logout-mobile"
+                      >
+                        Log out
+                      </AnchorLink>
+                    </NavItem>
+                  </div>
+                )}
               </Nav>
             )}
           </Collapse>

@@ -183,8 +183,11 @@ export default function Products() {
 
   const chosenPriceRange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const price = event.target.name;
-    console.log(price);
-    const updatedPrice = chosenPrice === price ? "" : price;
+    const updatedPrice = chosenPrice === price ? null : price;
+
+    // Use the spread operator to create a new array with updatedPrice
+    const updatedPriceRanges = chosenPrice === null ? [price] : [];
+
     setChosenPrice(updatedPrice);
     filterGames();
   };
@@ -218,7 +221,10 @@ export default function Products() {
       const platformMatch =
         chosenPlatforms.length === 0 ||
         chosenPlatforms.some((platform) => game.platforms.includes(platform));
-      const priceMatch = chosenPrice === null || game.price === chosenPrice;
+      const priceMatch =
+        chosenPrice === null ||
+        chosenPrice === "" ||
+        game.price === chosenPrice;
 
       return categoryMatch && platformMatch && priceMatch;
     });
@@ -421,8 +427,9 @@ export default function Products() {
                   className="flex px-2 py-2 md:px-0 md:py-0 shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-xl md:shadow-sm overflow-hidden productItem my-2"
                   onClick={(event) => {
                     if (
-                      (event.target as Element).tagName.toLowerCase() ===
-                      "button"
+                      (
+                        event.currentTarget as HTMLElement
+                      ).tagName.toLowerCase() === "button"
                     ) {
                       console.log("A button was clicked");
                       event.preventDefault();
@@ -476,9 +483,10 @@ export default function Products() {
                           {price === "Free" ? price : `€${price}`}
                         </p>
                         <button
-                          onClick={() =>
-                            handleAddToCart({ id, title, image, price })
-                          }
+                          onClick={(event) => {
+                            event.preventDefault(); // Prevent default when the button is clicked
+                            handleAddToCart({ id, title, image, price });
+                          }}
                           className="flex justify-center bg-forthColor md:bg-sixColor rounded-2xl py-2 w-1/4"
                         >
                           <Image src={CartIMG} alt="cart" />
@@ -505,208 +513,6 @@ export default function Products() {
           )}
         </div>
         <hr />
-        {/* {searchedGames && (
-          <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:px-8 ">
-            {searchedGames.map(
-              ({ title, image, price, tags, platforms, id }) => (
-                <Link
-                  href="/games/item=[id]"
-                  as={`/games/item=${id}`}
-                  key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor mt-8"
-                  onClick={(event) => {
-                    if (
-                      (event.target as Element).tagName.toLowerCase() ===
-                      "button"
-                    ) {
-                      console.log("A button was clicked");
-                      event.preventDefault();
-                    } else {
-                      // Manually navigate to the game page
-                      console.log("not a button pushed");
-                    }
-                  }}
-                >
-                  <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
-                    <img
-                      src={image}
-                      alt={image}
-                      className="object-cover md:object-fill md:h-full md:w-full "
-                    />
-                  </div>
-                  <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
-                    <div>
-                      <h3 className="flex items-center font-medium md:text-lg md:mt-2 md:mb-1">
-                        {title}
-                        {platforms.map((platform) => (
-                          <div className="px-1" key={platform}>
-                            {platformsIcon(platform)}
-                          </div>
-                        ))}
-                      </h3>
-                      <p className="font-extralight text-sm md:mb-2">
-                        {tags
-                          .slice(0, 2)
-                          .map((tag) => `${tag} `)
-                          .join(" • ")}
-                      </p>
-                    </div>
-
-                    <div className="flex p-2">
-                      <button className="flex font-medium text-lg md:text-forthColor md:bg-eightColor md:rounded-lg py-2">
-                        Add To Cart
-                        <p className="font-medium text-lg md:text-forthColor pl-2">
-                          €{price}
-                        </p>
-                      </button>
-                    </div>
-                  </div>
-                </Link>
-              )
-            )}
-          </div>
-        )}
-
-        <div className="flex flex-col md:grid md:grid-cols-2 2xl:grid-cols-4 md:gap-6 md:px-8 ">
-          {filteredGames && (
-            <div>
-              {filteredGames.map(
-                ({ title, image, price, tags, platforms, id }) => (
-                  <Link
-                    href="/games/item=[id]"
-                    as={`/games/item=${id}`}
-                    key={id}
-                    className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor mt-8"
-                    onClick={(event) => {
-                      if (
-                        (event.target as Element).tagName.toLowerCase() ===
-                        "button"
-                      ) {
-                        console.log("A button was clicked");
-                        event.preventDefault();
-                      } else {
-                        // Manually navigate to the game page
-                        console.log("not a button pushed");
-                      }
-                    }}
-                  >
-                    <div className="h-16 basis-28 px-2 py-2 self-center md:h-48 md:overflow-hidden md:px-0 md:py-0">
-                      <img
-                        src={image}
-                        alt={image}
-                        className="object-cover md:object-fill md:h-full md:w-full "
-                      />
-                    </div>
-                    <div className="md:grid-cols-2 md:justify-between md:h-30 px-2 py-2">
-                      <div>
-                        <h3 className="flex items-center font-medium md:text-lg md:mt-2 md:mb-1">
-                          {title}
-                          {platforms.map((platform) => (
-                            <div className="px-1" key={platform}>
-                              {platformsIcon(platform)}
-                            </div>
-                          ))}
-                        </h3>
-                        <p className="font-extralight text-sm md:mb-2">
-                          {tags
-                            .slice(0, 2)
-                            .map((tag) => `${tag} `)
-                            .join(" • ")}
-                        </p>
-                      </div>
-
-                      <div>
-                        <div className="flex p-2">
-                          <p className="font-medium text-lg text-eightColor pl-2 py-2 w-1/3">
-                            €{price}
-                          </p>
-                          <button
-                            onClick={() =>
-                              handleAddToCart({ id, title, image, price })
-                            }
-                            className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
-                          >
-                            Buy
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                )
-              )}
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:py-12 md:px-8">
-          {games &&
-            games
-              .slice(0, visibleGames)
-              .map(({ title, image, price, tags, platforms, id }) => (
-                <Link
-                  href={`/games/item=${id}`}
-                  as={`/games/item=${id}`}
-                  key={id}
-                  className="flex shadow-md shadow-forthColor md:grid md:bg-forthColor md:rounded-lg md:shadow-sm overflow-hidden productItem  "
-                  onClick={(event) => {
-                    if (
-                      (event.target as Element).tagName.toLowerCase() ===
-                      "button"
-                    ) {
-                      console.log("A button was clicked");
-                      event.preventDefault();
-                    } else {
-                      // Manually navigate to the game page
-                      console.log("not a button pushed");
-                    }
-                  }}
-                >
-                  <div className="w-1/2 lg:w-auto ">
-                    <img
-                      src={image}
-                      alt={title}
-                      className="object-fit h-full w-full rounded-lg "
-                    />
-                  </div>
-                  <div className="md:grid px-2 w-full space-y-1 py-1">
-                    <div className="">
-                      <div className="flex items-center text-sm px-1 md:text-base font-medium text-eightColor">
-                        {title}
-                      </div>
-                      <div className="text-xs font-extralight">
-                        {tags.slice(0, 2).map((tag) => (
-                          <span className="bg-secondColor bg-opacity-25 text-eightColor border-forthColor rounded-md p-1">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex text-eightColor">
-                        {platforms.map((platform) => (
-                          <div className="px-1" key={platform}>
-                            {platformsIcon(platform)}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex ">
-                        <p className="font-medium text-lg text-eightColor px-2 w-auto">
-                          €{price}
-                        </p>
-                        <button
-                          onClick={() =>
-                            handleAddToCart({ id, title, image, price })
-                          }
-                          className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl  w-2/3"
-                        >
-                          Buy
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-        </div> */}
 
         {visibleGames < games.length && (
           <button

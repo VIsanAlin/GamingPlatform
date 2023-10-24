@@ -54,59 +54,66 @@ const Cart: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="fixed top-0 w-full left-0 md:left-[50%] md:w-1/2 lg:left-[75%] lg:w-1/4 h-full bg-forthColor flex justify-center items-start">
-          <div className="p-4 ">
+        <div className="fixed top-0 w-full left-0 md:left-[50%] md:w-1/2 h-full 2xl:left-[75%] 2xl:w-1/4 bg-forthColor  flex justify-center items-start">
+          <div className="p-4 rounded-lg shadow-lg ">
             <button
               onClick={toggleCart}
-              className="absolute top-3 right-5 p-2 bg-transparent border-none"
+              className="absolute top-3 right-5 p-2 bg-transparent border-none text-eightColor"
             >
               X
             </button>
-            {cartItems.length === 0 ? (
-              <div className="text-center pt-10">
-                <p>No items added until now</p>
-              </div>
-            ) : (
-              <div className="py-10">
-                {cartItems &&
-                  cartItems.map((item) => (
-                    <div key={item.id} className=" pb-6">
-                      <div className="flex space-x-4 text-eightColor">
-                        <img
-                          src={item.image}
-                          alt={item.image}
-                          className="object-cover w-1/2 h-1/2 rounded-md"
-                        />
-                        <div className="">
-                          <p className=" pb-2">{item.title}</p>
-                          <p className=" pb-2">Quantity: 1</p>
-                          <p className=" pb-2">
-                            Price: ${item.sale ? item.sale.price : item.price}{" "}
-                          </p>
-                          <button
-                            onClick={() => removeFromCart(item.id)}
-                            className="pb-2"
-                          >
-                            Remove
-                          </button>
+            <div className="p-6 overflow-y-auto">
+              {cartItems.length === 0 ? (
+                <div className="text-center pt-10">
+                  <p>No items added until now</p>
+                </div>
+              ) : (
+                <div className="p-6">
+                  {cartItems &&
+                    cartItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className="mb-6 border-b border-eightColor pb-4 flex space-x-4 text-eightColor"
+                      >
+                        <div className="flex-center">
+                          <img
+                            src={item.image}
+                            alt={item.image}
+                            className="object-cover w-16 h-16 rounded-md"
+                          />
                         </div>
+                        <div className="flex flex-col flex-grow">
+                          <p className="md:text-lg md:font-semibold mb-2">
+                            {item.title}
+                          </p>
+                          <p className="text-sm mb-2">Quantity: 1</p>
+                          <p className="md:text-lg md:font-semibold">
+                            Price: ${item.sale ? item.sale.price : item.price}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="ml-auto text-sixColor hover:text-eightColor"
+                        >
+                          Remove
+                        </button>
                       </div>
-                    </div>
-                  ))}
-                <p className="font-medium text-lg pb-2">
-                  Total Price: ${getTotal()}
-                </p>
+                    ))}
+                  <p className="text-center text-lg font-semibold mt-4 text-eightColor">
+                    Total Price: ${getTotal()}
+                  </p>
 
-                <Link href="order" className="text-eightColor">
-                  <button
-                    className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3 mx-auto"
-                    onClick={toggleCart}
-                  >
-                    Checkout
-                  </button>
-                </Link>
-              </div>
-            )}
+                  <Link href="order" className="text-eightColor">
+                    <button
+                      className=" flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 mt-4 w-2/3 mx-auto"
+                      onClick={toggleCart}
+                    >
+                      Checkout
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
