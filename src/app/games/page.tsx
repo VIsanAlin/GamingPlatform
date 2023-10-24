@@ -319,8 +319,8 @@ export default function Products() {
           <div className="flex overflow-x-auto py-4">
             <div className="flex space-x-2" ref={categoriesRef}>
               {uniqueCategories.map((category) => (
-                <label
-                  className="flex space-x-2 px-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
+                <div
+                  className="flex-row w-max space-x-2 px-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
                   key={category}
                 >
                   <input
@@ -334,7 +334,7 @@ export default function Products() {
                     onChange={chosenCategory}
                   />
                   <label htmlFor={category}>{category}</label>
-                </label>
+                </div>
               ))}
             </div>
           </div>
@@ -344,7 +344,7 @@ export default function Products() {
             <div className="flex space-x-2" ref={platformsRef}>
               {uniquePlatforms.map((platform) => (
                 <div
-                  className="flex space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
+                  className="flex-row w-max space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
                   key={platform}
                 >
                   <input
@@ -364,7 +364,7 @@ export default function Products() {
             <div className="flex space-x-2" ref={priceRef}>
               {uniquePrice.map((price) => (
                 <div
-                  className="flex space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
+                  className="flex-row w-max space-x-2 border-fiveColor border-2 rounded-lg bg-forthColor bg-opacity-10"
                   key={price}
                 >
                   <input

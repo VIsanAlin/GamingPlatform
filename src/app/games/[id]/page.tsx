@@ -3,8 +3,9 @@ import { usePathname } from "next/navigation";
 import * as Realm from "realm-web";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import featureIcon from "../../../../public/star.png";
+import featureIcon from "../../../../public/feature.svg";
 import CarouselID from "../../../components/Carouselid";
+import CartIMG from "../../../../public/nav/shopping_cart_black_24dp.svg";
 import {
   BsSteam,
   BsPlaystation,
@@ -168,7 +169,7 @@ export default function GameDetails() {
                     />
                   </div>
 
-                  <div className=" p-4 pb-0 space-y-2 ">
+                  <div className="flex flex-col justify-between p-4 pb-0 space-y-2 ">
                     <h3 className=" text-fiveColor text-2xl font-medium  ">
                       {title}
                     </h3>
@@ -204,9 +205,9 @@ export default function GameDetails() {
                         onClick={() =>
                           handleAddToCart({ id, title, image, price })
                         }
-                        className="flex font-medium text-lg justify-center text-forthColor bg-eightColor rounded-2xl py-2 w-2/3"
+                        className="flex font-medium text-lg justify-center text-forthColor bg-forthColor md:bg-sixColor rounded-2xl py-2 w-1/2"
                       >
-                        Buy
+                        <Image src={CartIMG} alt="cart" />
                       </button>
                     </div>
                   </div>

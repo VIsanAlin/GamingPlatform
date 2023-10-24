@@ -190,18 +190,18 @@ export default function Store() {
         </div>
 
         <div className="py-2">
-          <div className="flex flex-row row-span-6 gap-8 md:py-12 md:px-8 overflow-hidden">
+          <div className="flex gap-4  md:py-12 md:px-8 overflow-hidden">
             <Link
               href="/games"
               as={`/games`}
               key={1}
-              className="flex flex-col px-6 py-6 border border-y-[#5A189A] border-x-[#E0AAFF] rounded-xl self-center text-center "
+              className="flex flex-col px-6 py-6 border max-h-36 border-y-[#5A189A] border-x-[#E0AAFF] rounded-xl self-center text-center "
               onClick={() => handleCategoryClick("Action")}
             >
               <img
                 src="categ/icons8-sword-64.png"
                 alt="Action Icon"
-                className="lg:pl-8 lg:w-2/3 pb-2"
+                className="h-[64px] w-[72px] lg:pl-8 lg:w-2/3 lg:h-auto  pb-2"
               />
               <h2>Action </h2>
             </Link>
@@ -209,13 +209,13 @@ export default function Store() {
               href="/games"
               as={`/games`}
               key={2}
-              className="px-6 py-6 border border-x-[#5A189A] border-y-[#E0AAFF] rounded-xl self-center text-center"
+              className="flex  flex-col px-6 py-6 border max-h-36 border-x-[#5A189A] border-y-[#E0AAFF] rounded-xl self-center text-center"
               onClick={() => handleCategoryClick("Adventure")}
             >
               <img
                 src="categ/icons8-adventure-64.png"
                 alt="Action Icon"
-                className="lg:pl-8 lg:w-2/3 pb-2"
+                className="h-[64px] w-[72px] lg:pl-8 lg:w-2/3 lg:h-auto  pb-2"
               />
               <h2>Adventure </h2>{" "}
             </Link>
@@ -223,13 +223,13 @@ export default function Store() {
               href="/games"
               as={`/games`}
               key={4}
-              className="px-6 py-6 border border-x-[#5A189A] border-y-[#E0AAFF] rounded-xl self-center text-center"
+              className="flex flex-col px-6 py-6 border max-h-36 border-y-[#5A189A] border-x-[#E0AAFF] rounded-xl self-center text-center"
               onClick={() => handleCategoryClick("Shooter")}
             >
               <img
                 src="categ/icons8-assault-rifle-64.png"
                 alt="Action Icon"
-                className="lg:pl-8 lg:w-2/3 pb-2"
+                className="h-[64px] w-[72px] lg:pl-8 lg:w-2/3 lg:h-auto pb-2"
               />
               <h2>Shooter </h2>{" "}
             </Link>
