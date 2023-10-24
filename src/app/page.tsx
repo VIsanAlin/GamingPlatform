@@ -24,7 +24,7 @@ export default function Home() {
       <section className="hero">
         {/* Left Text*/}
         <div className="heroText">
-          <h1 className="text-forthColor max-w-md text-4xl font-bold text-center md:text-5xl md:text-left">
+          <h1 className="mt-10 text-forthColor max-w-md text-4xl font-bold text-center md:text-5xl md:text-left">
             Best Gaming Store
           </h1>
           <p className="text-eightColor max-w-sm text-justify md:text-left ">
@@ -55,7 +55,7 @@ export default function Home() {
               <HeadBarIcon
                 icon={<BsSteam size="30" className="text-eightColor" />}
               />{" "}
-              <p>PC</p>
+              <p className="text-forthColor text-3xl ">PC</p>
             </h2>
             <p className="text-eightColor text-md text-justify px-4 py-4">
               Unlock the ultimate gaming experience on your PC with our
@@ -68,7 +68,7 @@ export default function Home() {
               <HeadBarIcon
                 icon={<BsXbox size="30" className="text-eightColor" />}
               />{" "}
-              <p>XBOX</p>
+              <p className="text-forthColor text-3xl ">XBOX</p>
             </h2>
             <p className="text-eightColor text-md text-justify px-4 py-4">
               Get your game on with Xbox! Browse through our selection of Xbox
@@ -81,7 +81,7 @@ export default function Home() {
               <HeadBarIcon
                 icon={<BsPlaystation size="30" className="text-eightColor" />}
               />{" "}
-              <p>PlayStation</p>
+              <p className="text-forthColor text-3xl ">PlayStation</p>
             </h2>
             <p className="text-eightColor text-md text-justify px-4 py-4">
               Level up your gaming on PlayStation! Explore our range of
@@ -96,7 +96,7 @@ export default function Home() {
                   <BsNintendoSwitch size="30" className="text-eightColor" />
                 }
               />
-              <p>Nintendo</p>
+              <p className="text-forthColor text-3xl ">Nintendo</p>
             </h2>
             <p className="text-eightColor text-md text-justify px-4 py-4">
               Experience the magic of Nintendo gaming! Choose from our Nintendo

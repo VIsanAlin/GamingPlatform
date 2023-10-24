@@ -69,7 +69,7 @@ export default function Navbar() {
                   >
                     <Menu.Items
                       static
-                      className="absolute right-0 w-40 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg outline-none z-10"
+                      className="absolute right-0 w-40 mt-2 origin-top-right bg-secondColor bg-opacity-75 border-b-2 border-eightColor text-eightColor rounded-md shadow-lg outline-none z-10"
                     >
                       <div className="py-1">
                         <Menu.Item>
@@ -78,9 +78,9 @@ export default function Navbar() {
                               href="store"
                               className={`${
                                 active
-                                  ? "bg-gray-100 text-gray-900"
-                                  : "text-gray-900"
-                              } flex items-center px-4 py-2 text-sm`}
+                                  ? "bg-gray-100 text-eightColor"
+                                  : "text-eightColor"
+                              } flex items-center px-4 py-2 text-sm border-b-2 border-eightColor`}
                             >
                               Store
                             </Link>
@@ -92,9 +92,9 @@ export default function Navbar() {
                               href="games"
                               className={`${
                                 active
-                                  ? "bg-gray-100 text-gray-900"
-                                  : "text-gray-900"
-                              } flex items-center px-4 py-2 text-sm`}
+                                  ? "bg-gray-100 text-eightColor"
+                                  : "text-eightColor"
+                              } flex items-center px-4 py-2 text-sm border-b-2 border-eightColor`}
                             >
                               Games
                             </Link>
@@ -106,9 +106,9 @@ export default function Navbar() {
                               href="help"
                               className={`${
                                 active
-                                  ? "bg-gray-100 text-gray-900"
-                                  : "text-gray-900"
-                              } flex items-center px-4 py-2 text-sm`}
+                                  ? "bg-gray-100 text-eightColor"
+                                  : "text-eightColor"
+                              } flex items-center px-4 py-2 text-sm border-b-2  border-eightColor`}
                             >
                               Help
                             </Link>
@@ -120,9 +120,9 @@ export default function Navbar() {
                               href="contact"
                               className={`${
                                 active
-                                  ? "bg-gray-100 text-gray-900"
-                                  : "text-gray-900"
-                              } flex items-center px-4 py-2 text-sm`}
+                                  ? "bg-gray-100 text-eightColor"
+                                  : "text-eightColor"
+                              } flex items-center px-4 py-2 text-sm `}
                             >
                               Contact
                             </Link>

@@ -14,31 +14,33 @@ function Profile() {
     <>
       {isLoading && <Loading />}
       {user && (
-        <>
-          <Row
-            className="align-items-center profile-header mb-5 text-center text-md-left"
-            data-testid="profile"
-          >
-            <Col md={2}>
+        <div className="p-4 bg-firstColor rounded shadow-md">
+          <Row className="items-center mb-5 text-center md:text-left">
+            <Col xs={12} md={2} className="mb-3 md:mb-0">
               <img
                 src={user.picture}
                 alt="Profile"
-                className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
-                decode="async"
+                className="w-20 h-20 md:w-32 md:h-32 rounded-full mx-auto md:mx-0"
                 data-testid="profile-picture"
               />
             </Col>
-            <Col md>
-              <h2 data-testid="profile-name">{user.name}</h2>
-              <p className="lead text-muted" data-testid="profile-email">
-                {user.email}
-              </p>
+            <Col>
+              <h2
+                className="text-2xl font-bold text-eightColor"
+                data-testid="profile-name"
+              >
+                {user.name}
+              </h2>
             </Col>
           </Row>
           <Row data-testid="profile-json">
-            <Highlight>{JSON.stringify(user, null, 2)}</Highlight>
+            <Col>
+              <div className="border-2 border-eightColor rounded-lg">
+                <Highlight>{JSON.stringify(user, null, 2)}</Highlight>
+              </div>
+            </Col>
           </Row>
-        </>
+        </div>
       )}
     </>
   );

@@ -4,12 +4,12 @@ export default function ReturnPolicy() {
       <div className="max-w-2xl mx-auto p-6 rounded-lg shadow-2xl shadow-[#5A189A] text-white">
         <h2 className="text-2xl font-bold mb-4">Return Policy</h2>
         <hr className="border-[#5A189A] pb-4" />
-        <ol className="list-decimal pl-6 mb-6">
+        <ol className="list-decimal text-justify pl-6  mb-6">
           <li>
             <p className="font-semibold text-[#e6bbff]">
               Activation Code Eligibility:
             </p>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-8 mr-4">
               <li>
                 Only unactivated or unused activation codes are eligible for
                 return.
@@ -23,7 +23,7 @@ export default function ReturnPolicy() {
           <hr className="border-[#9d4edd] mt-4 pb-4" />
           <li>
             <p className="font-semibold text-[#e6bbff]">Refund Criteria:</p>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-8 mr-4">
               <li>
                 Duplicate Purchase: If you accidentally purchase the same
                 activation code multiple times, we will refund the duplicate
@@ -38,7 +38,7 @@ export default function ReturnPolicy() {
           <hr className="border-[#9d4edd] mt-4 pb-4" />
           <li>
             <p className="font-semibold text-[#e6bbff]">Refund Process:</p>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-8 mr-4">
               <li>
                 To request a refund, please contact our customer support within
                 5 business days of purchase.
@@ -62,7 +62,7 @@ export default function ReturnPolicy() {
             <p className="font-semibold text-[#e6bbff]">
               Non-Refundable Cases:
             </p>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-8 mr-4">
               <li>
                 We do not offer refunds for activation codes due to a change of
                 mind or if you no longer want the game.
@@ -77,7 +77,7 @@ export default function ReturnPolicy() {
           <hr className="border-[#9d4edd] mt-4 pb-4" />
           <li>
             <p className="font-semibold text-[#e6bbff]">Fraudulent Activity:</p>
-            <ul className="list-disc pl-8">
+            <ul className="list-disc pl-8 mr-4">
               <li>
                 Any fraudulent activity or abuse of the return policy will
                 result in the denial of a refund.

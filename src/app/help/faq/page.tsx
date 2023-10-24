@@ -70,13 +70,13 @@ export default function FAQ() {
             <AnimatePresence>
               {question.showAnswer && (
                 <motion.div
-                  className="text-lg pb-4"
+                  className="text-lg text-justify pb-4"
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.1 }}
                 >
-                  <p className="mr-20"> {question.answer}</p>
+                  <p className="mr-6 md:mr-10"> {question.answer}</p>
                 </motion.div>
               )}
             </AnimatePresence>
