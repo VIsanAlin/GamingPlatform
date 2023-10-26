@@ -12,6 +12,7 @@ import {
   BsNintendoSwitch,
 } from "react-icons/bs";
 
+// Defining structure for Game Object
 interface Game {
   id: string;
   title: string;
@@ -36,13 +37,16 @@ export default function Products() {
   const [games, setGames] = useState<Game[]>([]);
   const [filteredGames, setFilteredGames] = useState<Game[]>([]);
 
+  // Fetch games from Realm (mongodb)
   useEffect(() => {
     const fetchGames = async () => {
+      //Init Realm
       const REALM_APP_ID = "games-oodpu";
       const app = new Realm.App({ id: REALM_APP_ID });
       const credentials = Realm.Credentials.anonymous();
       try {
         const user = await app.logIn(credentials);
+        //Fetching games
         const allGames = await user.functions.getAllGames();
         setGames(allGames);
         console.log(allGames);
@@ -61,8 +65,7 @@ export default function Products() {
     setVisibleGames((prev) => prev + 12);
   }
 
-  // Load Platforms
-
+  // Load icons for Platforms
   function platformsIcon(platforms: string) {
     {
       switch (platforms) {
@@ -91,6 +94,7 @@ export default function Products() {
   const platformsRef = useRef<HTMLDivElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
 
+  // Toggle visibility of category,platform and price selectors
   const toggleCategories = () => {
     setIsCategoriesVisible((prevVisibility) => !prevVisibility);
     setIsPlatformsVisible(false);
@@ -116,12 +120,14 @@ export default function Products() {
   // Redirect Store -> Category
   let selectedCategory: string | null;
   useEffect(() => {
+    //Retrieve from localstorage and set
     selectedCategory = localStorage.getItem("selectedCategory");
     if (selectedCategory) {
       setChosenCategories([selectedCategory]);
     }
   }, []);
 
+  //Retrievee list of unique game categories
   function categoryList() {
     const categories = games.reduce((uniqueCategories: string[], game) => {
       if (!uniqueCategories.includes(game.category)) {
@@ -132,7 +138,7 @@ export default function Products() {
 
     return categories;
   }
-
+  //Retrievee list of unique game platforms
   function platformList() {
     const platforms = games.reduce((uniquePlatforms: string[], game) => {
       game.platforms.forEach((platform) => {
@@ -144,7 +150,7 @@ export default function Products() {
     }, []);
     return platforms;
   }
-
+  //Retrievee list of unique game prices
   function priceList() {
     const priceRanges = games.reduce((uniquePriceRanges: string[], game) => {
       if (!uniquePriceRanges.includes(game.price)) {
@@ -155,11 +161,13 @@ export default function Products() {
     return priceRanges;
   }
 
+  // Handler chosen category selection
   const chosenCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
     const categ = event.target.name;
     const updatedCategories = chosenCategories.includes(categ)
       ? chosenCategories.filter((category) => category !== categ)
       : [...chosenCategories, categ];
+    //Update local storage with selected category
     if (chosenCategories.includes(categ)) {
       localStorage.removeItem("selectedCategory");
     } else {
@@ -169,7 +177,7 @@ export default function Products() {
     console.log(updatedCategories);
     filterGames();
   };
-
+  // Handler chosen platform selection
   const chosenPlats = (event: React.ChangeEvent<HTMLInputElement>) => {
     const platform = event.target.name;
     console.log(platform);
@@ -180,7 +188,7 @@ export default function Products() {
     console.log(updatedPlatforms);
     filterGames();
   };
-
+  // Handler chosen price selection
   const chosenPriceRange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const price = event.target.name;
     const updatedPrice = chosenPrice === price ? null : price;
@@ -195,15 +203,17 @@ export default function Products() {
   const uniquePlatforms = platformList();
   const uniquePrice = priceList();
 
-  // Search Bar
+  // Search Bar statee and handler
   const [searchValue, setSearchValue] = useState("");
   const [searchedGames, setSearchedGames] = useState<Game[]>([]);
+
   const searchGames = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchValue(value);
   };
   const enterGame = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
+      // Filter games based on search input
       const searched = games.filter((game) => game.title.includes(searchValue));
       setSearchedGames(searched);
       console.log(searchValue);
@@ -211,8 +221,7 @@ export default function Products() {
     }
   };
 
-  // Filter Games
-
+  // Function to filter games based on chosen categories, platforms, and price
   const filterGames = () => {
     const filtered = games.filter((game) => {
       const categoryMatch =
@@ -235,9 +244,9 @@ export default function Products() {
     filterGames();
   }, [chosenCategories, chosenPlatforms, chosenPrice]);
 
-  // Add To Cart
-
+  // Function to add a game to the shopping cart
   const handleAddToCart = (gameData: Partial<Game>) => {
+    //Retrieve and update shopping cart
     const cartItems = JSON.parse(sessionStorage.getItem("cart") || "[]");
     const game: Game = {
       id: gameData.id || "",

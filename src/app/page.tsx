@@ -8,6 +8,7 @@ import {
   BsNintendoSwitch,
 } from "react-icons/bs";
 
+// Component for rendering icon
 type HeadBarIconProps = {
   icon: ReactNode;
 };

@@ -13,6 +13,7 @@ import {
   BsNintendoSwitch,
 } from "react-icons/bs";
 
+//Struture for Game Object
 interface Game {
   id: string;
   title: string;
@@ -37,6 +38,7 @@ export default function Store() {
   const [games, setGames] = useState<Game[]>([]);
   const [filteredGames, setFilteredGames] = useState<Game[]>([]);
 
+  //Function fetch games from Realm (mongodb)
   const getAllGames = cache(async () => {
     const REALM_APP_ID = "games-oodpu";
     const app = new Realm.App({ id: REALM_APP_ID });
@@ -51,6 +53,7 @@ export default function Store() {
     }
   });
 
+  // Fetch games when component mounts
   useEffect(() => {
     const fetchGames = async () => {
       const allGames = await getAllGames();
@@ -113,11 +116,11 @@ export default function Store() {
   console.log(imagesToDisplay);
 
   // Category click
-
   const handleCategoryClick = (category: string) => {
     localStorage.setItem("selectedCategory", category);
   };
 
+  // Render platform icon
   function platformsIcon(platforms: string) {
     {
       switch (platforms) {
@@ -143,7 +146,7 @@ export default function Store() {
   }
 
   ////////////////////////////////
-
+  // Function to add games to cart
   const handleAddToCart = (gameData: Partial<Game>) => {
     const cartItems = JSON.parse(sessionStorage.getItem("cart") || "[]");
     const game: Game = {
@@ -179,6 +182,7 @@ export default function Store() {
         </div>
         <hr className="border-[#5A189A]" />
 
+        {/*Render Carousel */}
         <div className="pt-2">
           <Carousel
             images={imagesToDisplay}
@@ -236,7 +240,7 @@ export default function Store() {
           </div>
         </div>
 
-        {/* Separate divs for Fantasy, RPG, and Shooter */}
+        {/* Separate divs for Popular, Sale, RPG, and Shooter */}
         <div className="py-2 ">
           <h2 className="text-2xl py-4 text-gradient">Popular Games</h2>
           <hr className="border-[#5A189A] " />

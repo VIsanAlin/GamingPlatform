@@ -13,6 +13,7 @@ import {
   BsNintendoSwitch,
 } from "react-icons/bs";
 
+//Structure of Game/SystemReq/ReviewCompanies
 interface Game {
   id: string;
   title: string;
@@ -50,10 +51,14 @@ interface ReviewCompanies {
 }
 
 export default function GameDetails() {
+  //Extracting game ID from URL path
   const path = usePathname();
   const id = path.split("/games/item=")[1];
+
+  //State variable to store data
   const [game, setGame] = useState<Game[]>([]);
 
+  //Fetch game from Realm (mongodb)
   const fetchGame = async (id: string) => {
     const REALM_APP_ID = "games-oodpu";
     const app = new Realm.App({ id: REALM_APP_ID });
@@ -68,12 +73,14 @@ export default function GameDetails() {
     }
   };
 
+  //Fetch and mount component based on id
   useEffect(() => {
     if (id) {
       fetchGame(id as string);
     }
   }, [id]);
 
+  // Displaying icons
   function platformsIcon(platforms: string) {
     {
       switch (platforms) {
@@ -95,6 +102,7 @@ export default function GameDetails() {
     return <div>Loading...</div>;
   }
 
+  // Adding game to shopping cart
   const handleAddToCart = (gameData: Partial<Game>) => {
     const cartItems = JSON.parse(sessionStorage.getItem("cart") || "[]");
     const game: Game = {

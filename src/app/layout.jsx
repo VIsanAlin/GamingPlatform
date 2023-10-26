@@ -16,9 +16,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      {/*Init. UserProvider for Auth0 */}
       <UserProvider>
         <body className={inter.className}>
           <Navbar />
+          {/* Use Suspense for code-splitting and show Loading component while content is loading */}
           <Suspense fallback={<Loading />}>{children}</Suspense>
           <Footer />
         </body>
